@@ -2,6 +2,8 @@
 
 Gençlerin günlük konuşmalarında ve dijital dünyada karşılaştığımız 40 kelimeyi anlaşılır tanımlar, ek açıklamalar ve günlük örneklerle sunan etkileşimli bir sözlük.
 
+**Canlı site:** https://arsaliakbal-glitch.github.io/genclerden-buyuklere-ar-sozluk/
+
 ## Özellikler
 
 - Kitap görünümünde sayfaları ileri ve geri çevirme
