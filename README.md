@@ -1,37 +1,23 @@
-# Gençlerden Büyüklere AR Sözlük
+# Gençlerden Büyüklere · AR Sözlük
 
-Gençlerin günlük konuşmalarında ve dijital dünyada karşılaştığımız 40 kelimeyi anlaşılır tanımlar, ek açıklamalar ve günlük örneklerle sunan etkileşimli bir sözlük.
-
-**Canlı site:** https://arsaliakbal-glitch.github.io/genclerden-buyuklere-ar-sozluk/
-
-## Özellikler
-
-- Kitap görünümünde sayfaları ileri ve geri çevirme
-- Klavyedeki sağ ve sol ok tuşlarıyla gezinme
-- Dokunmatik ekranda yana kaydırarak sayfa değiştirme
-- Kelime ve konu başlığına göre arama
-- WebXR destekli cihazlarda kameradan görünen ortama yerleştirilen AR kitap görünümü
-- Telefon ve bilgisayar ekranlarına uyumlu tasarım
+Canlı site: https://arsaliakbal-glitch.github.io/genclerden-buyuklere-ar-sozluk/
 
 ## Kullanım
 
-`index.html` dosyasını bir tarayıcıda açarak sözlüğün kitap görünümünü kullanabilirsin. AR görünümü için sayfanın HTTPS üzerinden sunulması, tarayıcı ve cihazın WebXR `immersive-ar` özelliğini desteklemesi ve kamera izninin verilmesi gerekir. AR desteği cihaz ve tarayıcıya göre değişir.
+- Kitap görünümünde sağ/sol oklarla veya klavyeyle 40 kelime arasında gez.
+- **AR Görünümü** düğmesi, desteklenen Android cihazlarda WebXR yüzey AR’sini başlatır.
+- iPhone/iPad Safari’de uygulama, görüntü işaretçisi takibiyle kamera AR’sine geçer. HTTPS bağlantısı ve kamera izni gerekir.
+- iPhone’u işaretçiye doğrult. İşaretçiyi başka ekranda aç veya yazdır; aynı telefonun ekranındaki işaretçiyi kendi kamerasıyla tarayamaz.
+- İşaretçi görünürken sözlük kartı hedefin üzerinde sabitlenir; alttaki oklarla kelimeler arasında geçiş yap.
 
-## GitHub Pages ile yayımlama
+## iPhone işaretçisi
 
-1. Bu dosyaları yeni bir GitHub deposunun ana dizinine ekle.
-2. Depoda **Settings → Pages** bölümünü aç.
-3. **Deploy from a branch** seçeneğini seç; `main` dalı ve `/ (root)` klasörünü ayarla.
-4. GitHub Pages adresi hazır olduğunda siteyi HTTPS bağlantısından aç. AR’yi WebXR destekli Android cihazda, uyumlu bir tarayıcıyla dene.
+[İşaretçi görselini aç](https://hiukim.github.io/mind-ar-js-doc/assets/images/card-06cb9111a8e32627db6bfafc7aa22a4d.png)
 
-## İçerik
+## Teknik not
 
-40 kelimenin tanımları, örnek cümleleri ve sözlük açıklamaları uygulamanın içine gömülüdür. Kelime listesi uygulama açıldığında internetten indirilmez. Google Fonts bağlantısı çevrim içi olduğunda özel yazı tiplerini yükler; bağlantı yoksa sistem yazı tipleri kullanılır.
+Görüntü takibi MindAR ve A-Frame ile çalışır. Bu kütüphaneler CDN’den yüklenir; AR’yi açarken internet bağlantısı gerekir. Kitap görünümü ve 40 kelimenin içeriği uygulamanın içine gömülüdür. iOS Safari, WebXR `immersive-ar` oturumunu sunmadığından işaretçi tabanlı yol kullanılır. Kamera erişimi tarayıcının izin penceresiyle istenir.
 
-## Gizlilik
+## Yayınlama
 
-Uygulama sözlük aramalarını herhangi bir sunucuya göndermez. AR düğmesine basıldığında kamera erişimi, tarayıcı ve cihazın AR özelliğine bağlı olarak istenir. Kamera görüntüsü uygulama kodu tarafından kaydedilmez veya bir sunucuya gönderilmez.
-
-## Uygulama dosyası
-
-- `index.html` — sözlüğün tamamı ve çalışma kodu tek dosyada.
+Depoda `main` dalının kök dizinini GitHub Pages kaynağı olarak seç. Tek sayfalı uygulama `index.html` üzerinden çalışır.
