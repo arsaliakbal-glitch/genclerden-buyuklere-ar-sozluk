@@ -6,13 +6,9 @@ Canlı site: https://arsaliakbal-glitch.github.io/genclerden-buyuklere-ar-sozluk
 
 - Kitap görünümünde sağ/sol oklarla veya klavyeyle 40 kelime arasında gez.
 - **AR Görünümü** düğmesi, desteklenen Android cihazlarda WebXR yüzey AR’sini başlatır.
-- iPhone/iPad Safari’de uygulama, görüntü işaretçisi takibiyle kamera AR’sine geçer. HTTPS bağlantısı ve kamera izni gerekir.
-- iPhone’u işaretçiye doğrult. İşaretçiyi başka ekranda aç veya yazdır; aynı telefonun ekranındaki işaretçiyi kendi kamerasıyla tarayamaz.
+- iPhone/iPad Safari’de uygulama, kamera görüntüsünün ortasında duran kamera göreli 3B kitap sahnesini açar. HTTPS bağlantısı ve kamera izni gerekir.
+- iPhone’da AR görünümünü açınca kitap kamera görüntüsünün ortasında belirir; iki parmakla kilidi aç, sayfaları kaydır ve boyutunu kıstırarak ayarla.
 - İşaretçi görünürken kilitli kapak hedefin üzerinde belirir. İki parmağınla kilidi döndür; açıldıktan sonra sola kaydırıp kapağı aç, sağa/sola kaydırarak sayfaları çevir. İki parmakla yaklaştırıp uzaklaştırarak boyutunu ayarla. AR görünümünde sayfa düğmeleri kullanılmaz.
-
-## iPhone işaretçisi
-
-[Kullanılacak işaretçi görselini aç](https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.png)
 
 ## Teknik not
 
