@@ -3,194 +3,346 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#B5121B">
-<meta name="description" content="Gençlerin günlük dilindeki 40 kelimenin okunuşu, anlamı ve kullanım örneği.">
+<meta name="theme-color" content="#1D3F8F">
+<meta name="description" content="Gençlerin günlük dilindeki kelimeleri büyükler için açıklayan defter sözlük.">
 <title>Gençlerden Büyüklere Sözlüğü</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,500;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#000;--grey:#555;--red:#B5121B;--gold:#D8B45A;--serif:"Alegreya",Georgia,"Times New Roman",serif}
+:root{
+  --paper:#FBFCF8;
+  --grid:#DFE9F1;
+  --ink:#1D3F8F;
+  --ink-deep:#132B66;
+  --margin:#E04A4F;
+  --marker:#FFE14D;
+  --text:#000;
+  --muted:#556074;
+  --desk:#E3E8EE;
+  --display:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",ui-sans-serif,system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",ui-sans-serif,system-ui,sans-serif;
+  --grid-bg:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:#fff;color:var(--ink);font:400 20px/1.5 var(--serif)}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--desk);color:var(--text);font:400 18px/1.6 var(--body);min-height:100vh}
 button,input{font:inherit;color:inherit}
-:focus-visible{outline:3px solid var(--red);outline-offset:2px}
-a{color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.mark{text-decoration:underline;text-decoration-color:var(--margin);text-decoration-thickness:.07em;text-underline-offset:.14em}
 
-.wrap{max-width:1180px;margin:0 auto;padding:44px 84px 80px 44px}
-.head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px 48px;align-items:end;border-bottom:3px solid var(--ink);padding-bottom:20px}
-h1{margin:0;font-weight:800;font-size:clamp(36px,4.6vw,58px);line-height:1.02}
-.sub{margin:12px 0 0;color:var(--grey);max-width:38ch}
-.tools{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
-.search{display:block}
-.search span{display:block;font-size:17px;color:var(--grey)}
-.search input{width:300px;max-width:100%;border:0;border-bottom:2px solid var(--ink);border-radius:0;background:transparent;padding:4px 0 6px;font-size:21px;outline:none}
-.search input:focus{border-bottom-color:var(--red)}
-.btns{display:flex;gap:10px}
-.btn{border:2px solid var(--ink);border-radius:0;background:#fff;padding:9px 16px;font-weight:700;font-size:18px;cursor:pointer;line-height:1.2}
-.btn:hover{background:var(--ink);color:#fff}
-.btn.dark{background:var(--ink);color:#fff}
-.btn.dark:hover{background:var(--red);border-color:var(--red)}
-.note{margin:18px 0 34px;font-size:17px;color:var(--grey);max-width:70ch}
+/* üst çubuk */
+.top{position:sticky;top:0;z-index:10;background:var(--desk);display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"brand search act";gap:20px;align-items:center;padding:14px clamp(16px,3vw,40px);border-bottom:1px solid #CBD4DE}
+.brand{grid-area:brand;display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
+.brand-name{font:800 21px/1.05 var(--display);letter-spacing:-.02em}
+.brand-sub{display:block;font:400 14px/1.3 var(--body);color:var(--muted);letter-spacing:0;margin-top:3px}
+.search{grid-area:search;justify-self:center;width:min(100%,440px);display:flex;align-items:center;gap:10px;background:#fff;border:2px solid #8C99A8;padding:0 14px;height:50px}
+.search:focus-within{border-color:var(--ink)}
+.search svg{flex:none;color:var(--muted)}
+.search input{border:0;outline:0;background:transparent;width:100%;height:100%;font-size:18px}
+.actions{grid-area:act;display:flex;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;height:50px;padding:0 18px;border:2px solid var(--ink);background:transparent;color:var(--ink);font-weight:700;font-size:17px;white-space:nowrap}
+.btn:hover{background:#D3DCEA}
+.btn.primary{background:var(--ink);color:#fff}
+.btn.primary:hover{background:var(--ink-deep)}
+.btn svg{flex:none}
+.menu-btn{grid-area:menu;display:none;justify-self:end}
 
-.entries{columns:2 400px;column-gap:60px}
-.letter{margin:0 0 8px;font-size:60px;line-height:1;font-weight:800;color:var(--red);break-after:avoid}
-.letter:not(:first-child){margin-top:28px}
-.e{break-inside:avoid;margin:0 0 22px;scroll-margin-top:24px}
-.e p{margin:0}
-.hw{font-weight:800;font-size:1.3em;line-height:1.1}
-.ok{color:var(--grey)}
-.or{color:var(--grey);font-style:italic;font-size:.9em}
-.ex{margin-top:6px;padding-left:22px}
-.ex i{font-style:italic}
-.ya{font-style:italic;color:var(--grey)}
-.nt{margin-top:6px;padding-left:22px;font-size:17px;line-height:1.5;color:#333}
-.e:target .hw,.e.lit .hw{color:var(--red)}
-.empty{font-size:20px}
-.foot{margin-top:40px;border-top:1px solid var(--ink);padding-top:12px;font-size:16px;color:var(--grey)}
+/* yerleşim */
+.layout{display:grid;grid-template-columns:260px minmax(0,1fr);gap:clamp(20px,3vw,44px);padding:28px clamp(16px,3vw,40px) 40px;max-width:1440px;margin:0 auto}
 
-.thumbs{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:5;display:flex;flex-direction:column;gap:2px}
-.thumbs a{display:block;width:40px;padding:3px 0 3px 12px;background:var(--red);color:#fff;text-decoration:none;font-weight:800;font-size:17px;line-height:1.25}
-.thumbs a:hover{width:48px}
-.thumbs a.off{background:#c9c9c9}
+/* fihrist */
+.fihrist{position:sticky;top:104px;align-self:start;max-height:calc(100vh - 128px);overflow:auto;padding-right:6px}
+.fihrist h2{font:700 15px/1.3 var(--body);color:var(--muted);margin:22px 0 6px}
+.fihrist h2:first-of-type{margin-top:0}
+.fihrist ul{list-style:none;margin:0;padding:0}
+.fihrist ul button{display:block;width:100%;text-align:left;border:0;background:transparent;padding:6px 10px;font:500 18px/1.35 var(--display);color:var(--text)}
+.fihrist ul button:hover{background:#D3DCEA}
+.fihrist ul button[aria-current="true"]{color:var(--ink);font-weight:800}.fihrist ul button[aria-current="true"] span{text-decoration:underline;text-decoration-color:var(--margin);text-decoration-thickness:2px;text-underline-offset:4px}
+.fihrist-empty{color:var(--muted);font-size:17px;margin:8px 10px}
+.fihrist-head{display:none}
+
+/* defter */
+.desk{min-width:0;display:flex;flex-direction:column;align-items:center}
+.spread{width:100%;max-width:1060px;display:grid;grid-template-columns:1fr 1fr;position:relative;filter:drop-shadow(0 18px 28px #1a223326);perspective:1800px}
+.page{position:relative;min-width:0;background-color:var(--paper);background-image:var(--grid-bg);background-size:26px 26px;background-position:-1px -1px;padding:30px clamp(24px,3vw,44px) 30px calc(clamp(24px,3vw,44px) + 30px);min-height:560px;display:flex;flex-direction:column}
+.page::before{content:"";position:absolute;top:0;bottom:0;left:clamp(30px,3vw,46px);width:2px;background:var(--margin);opacity:.75}
+.page-left{box-shadow:inset -18px 0 24px -22px #1a2233}
+.page-right{box-shadow:inset 18px 0 24px -22px #1a2233}
+.spine{position:absolute;z-index:2;left:50%;top:18px;bottom:18px;width:22px;transform:translateX(-50%);background:radial-gradient(circle at 50% 50%,#9AA6B4 0 4px,#E9EDF1 5px 7px,transparent 8px) center top/22px 30px repeat-y;pointer-events:none}
+.page-head{display:flex;justify-content:space-between;gap:16px;font-size:15px;color:var(--muted);border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:26px}
+.page-head b{color:var(--ink);font-weight:700}.page-head span:last-child{flex:none;white-space:nowrap}
+.word{font:800 clamp(52px,6vw,84px)/1 var(--display);letter-spacing:-.035em;margin:6px 0 22px;color:var(--text);overflow-wrap:anywhere}
+.definition{font-size:22px;line-height:1.5;font-weight:700;margin:0 0 26px;max-width:32ch}
+.note-label{font:700 16px/1.3 var(--body);color:var(--ink);margin:0 0 6px}
+.detail{margin:0;color:#2F3A4E;max-width:40ch}
+.chat{display:flex;flex-direction:column;align-items:flex-end;margin:8px 0 26px}
+.bubble{margin:0;max-width:92%;background:var(--ink);color:#fff;padding:14px 18px;border-radius:18px 18px 4px 18px;font-size:21px;line-height:1.45;font-weight:500}
+.bubble-meta{font-size:14px;color:var(--muted);margin-top:6px}
+.meaning{margin:0;font-size:20px;line-height:1.55;color:var(--ink-deep);max-width:36ch}
+.left-foot{margin-top:auto;padding-top:24px;color:var(--muted);font-size:15px}
+.flip-in-next{animation:flipNext .45s cubic-bezier(.2,.7,.2,1) both;transform-origin:left center}
+.flip-in-prev{animation:flipPrev .45s cubic-bezier(.2,.7,.2,1) both;transform-origin:right center}
+@keyframes flipNext{from{opacity:.2;transform:rotateY(-14deg)}to{opacity:1;transform:none}}
+@keyframes flipPrev{from{opacity:.2;transform:rotateY(14deg)}to{opacity:1;transform:none}}
+
+.pager{width:100%;max-width:1060px;display:flex;justify-content:space-between;gap:14px;margin-top:22px}
+.pager button{display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 20px;border:2px solid #8C99A8;background:#fff;text-align:left;max-width:48%}
+.pager button:hover:not(:disabled){border-color:var(--ink)}
+.pager button:disabled{visibility:hidden}
+.pager small{display:block;font-size:14px;color:var(--muted);line-height:1.2}
+.pager b{display:block;font:700 20px/1.2 var(--display);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pager .next{text-align:right;margin-left:auto}
+.hint{color:var(--muted);font-size:15px;margin:14px 0 0;text-align:center}
+
+.status{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:80;background:var(--ink-deep);color:#fff;padding:12px 18px;font-size:16px;max-width:min(92vw,520px);text-align:center}
+.status:empty{display:none}
+.scrim{display:none}
 
 /* 3B */
-.v3{position:fixed;inset:0;z-index:50;display:none;flex-direction:column;background:#E4E2DE}
-.v3.open{display:flex}
-.v3-top,.v3-bot{display:flex;align-items:center;gap:14px;padding:12px 18px;background:#fff;border-bottom:2px solid var(--ink)}
-.v3-bot{border-bottom:0;border-top:2px solid var(--ink);justify-content:center}
-.v3-top h2{margin:0;font-size:24px;font-weight:800;flex:1}
-.v3-top p{margin:0;color:var(--grey);font-size:17px}
-.v3-stage{position:relative;flex:1;min-height:0;touch-action:none;cursor:grab}
-.v3-stage:active{cursor:grabbing}
-.v3-stage canvas{display:block;width:100%;height:100%}
-.v3-msg[hidden]{display:none}.v3-msg{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;font-size:21px}
-.v3-pos{min-width:130px;text-align:center;font-weight:700}
+.view3d{position:fixed;inset:0;z-index:50;display:none;place-items:center;background:#1a2233b3;padding:16px}
+.view3d.open{display:grid}
+.view3d-panel{width:min(980px,100%);height:min(780px,100%);display:flex;flex-direction:column;overflow:hidden;background:var(--desk)}
+.view3d-head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 22px;border-bottom:1px solid #CBD4DE}
+.view3d-head h2{margin:0;font:800 24px/1.1 var(--display);letter-spacing:-.02em}
+.view3d-head p{margin:4px 0 0;color:var(--muted);font-size:15px}
+.view3d-stage{position:relative;flex:1;min-height:0;touch-action:none;cursor:grab;background:#D5DCE4}
+.view3d-stage:active{cursor:grabbing}
+.view3d-canvas{display:block;width:100%;height:100%}
+.view3d-loading{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;font-weight:700;color:var(--ink)}
+.view3d-foot{display:flex;align-items:center;justify-content:center;gap:16px;padding:14px 18px 18px;border-top:1px solid #CBD4DE;flex-wrap:wrap}
+.view3d-pos{min-width:120px;text-align:center;font:700 18px var(--display)}
+.view3d-foot .btn{height:48px}
+.view3d-tip{width:100%;text-align:center;color:var(--muted);font-size:14px;margin:0}
 
 /* kamera */
-.cam{position:fixed;inset:0;z-index:60;display:none;background:#3a3a3a;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;overscroll-behavior:none}
+.cam{position:fixed;inset:0;z-index:60;display:none;background:#10182A;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;overscroll-behavior:none}
 .cam.open{display:block}
 .cam video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.cam-top{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:calc(env(safe-area-inset-top) + 12px) 12px 12px}
-.cam-top .btn{background:#fff}
-.cam-pos{background:#fff;padding:9px 14px;font-weight:700;font-size:18px;border:2px solid var(--ink)}
+.cam-top{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:calc(env(safe-area-inset-top) + 12px) 14px 12px}
+.cam-chip{background:#132B66e6;color:#fff;font-weight:700;font-size:16px;padding:10px 14px;border:0}
 .cam-stage{position:absolute;inset:0;z-index:2;display:grid;place-items:center;perspective:1300px;pointer-events:none}
-.cam-book{position:relative;width:min(84vw,420px);height:min(70vh,600px);transform:scale(var(--cam-zoom,1));transform-style:preserve-3d;filter:drop-shadow(0 18px 22px rgba(0,0,0,.45))}
-.page{position:absolute;inset:0;overflow:hidden;background:#fff;color:var(--ink);padding:18px 30px 16px 20px;font-size:17px;line-height:1.45;transform-origin:left center;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-left:3px solid #ddd}
-.page .rh{display:flex;justify-content:space-between;font-style:italic;font-size:.9em;border-bottom:1px solid var(--ink);padding-bottom:3px;margin-bottom:12px}
-.page .hw{font-size:1.6em}
-.page .ex,.page .nt{padding-left:16px}
-.page .nt{font-size:.88em}
-.page .tab{position:absolute;right:0;width:20px;height:44px;background:var(--red);color:#fff;font-weight:800;font-size:14px;display:grid;place-items:center}
-.page.cover{background:var(--red);border-left:6px solid #8E0E15;color:var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
-.cover-frame{position:absolute;inset:16px;border:2px solid var(--gold)}
-.cover-title{font-weight:800;font-size:30px;line-height:1.15;letter-spacing:.06em}
-.cover-sub{margin-top:14px;font-size:18px}
-.cover-hint{position:absolute;left:0;right:0;bottom:30px;color:#fff;font-size:17px}
-.cam-hint{position:absolute;z-index:3;left:50%;bottom:calc(env(safe-area-inset-bottom) + 16px);transform:translateX(-50%);white-space:nowrap;background:#fff;border:2px solid var(--ink);padding:8px 14px;font-size:17px;pointer-events:none}
+.cam-book{position:relative;width:min(88vw,440px);height:min(72vh,640px);transform:scale(var(--cam-zoom,1)) rotateX(4deg);transform-style:preserve-3d;filter:drop-shadow(0 26px 34px #000a)}
+.cam-book::before{content:"";position:absolute;z-index:5;left:-11px;top:14px;bottom:14px;width:22px;background:radial-gradient(circle at 50% 50%,#8E99A8 0 4px,#EEF1F4 5px 7px,transparent 8px) center top/22px 28px repeat-y;pointer-events:none}
+.cam-page{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;padding:20px 20px 16px 50px;background-color:var(--paper);background-image:var(--grid-bg);background-size:22px 22px;color:var(--text);font-size:16px;transform-origin:left center;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.cam-page::before{content:"";position:absolute;top:0;bottom:0;left:36px;width:2px;background:var(--margin);opacity:.75}
+.cam-page .page-head{font-size:.8em;margin-bottom:.9em}
+.cam-word{font:800 2.9em/1 var(--display);letter-spacing:-.035em;margin:.1em 0 .35em;overflow-wrap:anywhere}
+.cam-def{font-size:1.1em;font-weight:700;line-height:1.45;margin:0 0 .8em}
+.cam-page .chat{margin:0 0 .8em}
+.cam-page .bubble{font-size:1em;padding:.6em .85em}
+.cam-page .note-label{font-size:.82em;margin-bottom:.2em}
+.cam-mean{font-size:.98em;line-height:1.5;color:var(--ink-deep);margin:0 0 .8em}
+.cam-detail{font-size:.86em;line-height:1.55;color:#2F3A4E;margin:0}
+.cam-page.cover{padding:0;background:var(--ink);background-image:repeating-linear-gradient(135deg,#ffffff08 0 2px,transparent 2px 9px);align-items:center;justify-content:center;box-shadow:inset 6px 0 0 var(--ink-deep)}
+.cam-page.cover::before{display:none}
+.label{width:78%;background:#fff;border-radius:12px;padding:18px 20px 16px;color:var(--text);box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 4px var(--ink)}
+.label-row{display:flex;gap:8px;align-items:baseline;border-bottom:1.5px dotted #9AA6B4;padding:6px 0;font-size:15px}
+.label-row span{color:var(--muted);flex:none}
+.label-row b{font-weight:700}
+.label-title{font:800 26px/1.1 var(--display);letter-spacing:-.02em;color:var(--ink)}
+.cover-hint{position:absolute;left:0;right:0;bottom:22px;text-align:center;color:#fff;font-weight:700;font-size:16px}
+.cam-hint{position:absolute;left:50%;bottom:calc(env(safe-area-inset-bottom) + 16px);transform:translateX(-50%);z-index:3;white-space:nowrap;background:#132B66e6;color:#fff;font-size:14px;font-weight:600;padding:10px 14px;pointer-events:none}
+.cam.open~.status{bottom:auto;top:calc(env(safe-area-inset-top) + 70px)}
 
-.status{position:fixed;z-index:80;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;font-size:18px;max-width:min(92vw,520px);text-align:center}
-.status:empty{display:none}
-.cam.open~.status{bottom:auto;top:calc(env(safe-area-inset-top) + 72px)}
-
-@media (max-width:760px){
-  body{font-size:19px}
-  .wrap{padding:22px 46px 60px 16px}
-  .head{grid-template-columns:1fr}
-  .search input{width:100%}
-  .search{width:100%}
-  .tools{align-items:stretch}
-  .btns .btn{flex:1}
-  .letter{font-size:48px}
-  .thumbs{gap:1px}
-  .thumbs a{width:30px;padding:2px 0 2px 8px;font-size:14px}
-  .thumbs a:hover{width:30px}
-  .v3-top p{display:none}
+/* küçük ekran */
+@media (max-width:1060px){
+  .top{grid-template-columns:auto 1fr auto;grid-template-areas:"brand menu act" "search search search";row-gap:12px}
+  .search{justify-self:stretch;width:100%}
 }
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;padding-top:20px}
+  .menu-btn{display:inline-flex}
+  .fihrist{position:fixed;z-index:40;top:0;bottom:0;left:0;width:min(86vw,340px);max-height:none;background:var(--desk);padding:20px 18px 30px;transform:translateX(-105%);transition:transform .25s ease;box-shadow:0 0 40px #0003}
+  .fihrist.open{transform:none}
+  .fihrist-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .fihrist-head strong{font:800 22px var(--display)}
+  .scrim.open{display:block;position:fixed;inset:0;z-index:39;background:#1a223366}
+}
+@media (max-width:760px){
+  body{font-size:17px}
+  .top{position:static;grid-template-columns:1fr auto;grid-template-areas:"brand menu" "search search" "act act";padding:12px 14px;gap:10px}
+  .actions{display:grid;grid-template-columns:1fr 1fr}
+  .actions .btn{justify-content:center}
+  .brand-sub{display:none}
+  .brand-name{font-size:18px}
+  .btn{height:46px;padding:0 13px;font-size:16px}
+  .spread{grid-template-columns:1fr;gap:16px;filter:none}
+  .spine{display:none}
+  .page{min-height:0;padding:22px 18px 24px 50px;box-shadow:0 6px 14px #0000001f!important;background-size:22px 22px}
+  .page::before{left:34px}
+  .page-right{order:1}
+  .page-left{order:2}
+  .word{font-size:clamp(44px,13vw,60px)}
+  .definition{font-size:20px}
+  .bubble{font-size:19px}
+  .meaning{font-size:18px}
+  .left-foot{display:none}
+  .pager button{min-height:58px;padding:6px 14px}
+  .pager b{font-size:18px}
+  .hint{display:none}
+  .view3d{padding:0}
+  .view3d-panel{height:100%}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="head">
-    <div>
-      <h1>Gençlerden Büyüklere Sözlüğü</h1>
-      <p class="sub">Torunların her gün kullandığı <span id="total">40</span> kelime: nasıl okunur, ne demek, nasıl kullanılır.</p>
-    </div>
-    <div class="tools">
-      <label class="search"><span>Kelime ya da anlam ara</span><input id="search" type="search" autocomplete="off" placeholder="örneğin: utanmak"></label>
-      <div class="btns">
-        <button class="btn" id="v3Btn" type="button">3B kitap</button>
-        <button class="btn dark" id="camBtn" type="button">Kamerada aç</button>
-      </div>
-    </div>
-  </header>
-  <p class="note">Kelimeler alfabe sırasındadır. Köşeli parantezdeki okunuşlar Türkçe harflerle yazıldı. Sağ kenardaki harflere dokunarak o harfe gidebilirsin.</p>
-  <main class="entries" id="entries"></main>
-  <p class="foot">Okunuşlar yaklaşık olarak verildi; kelimenin İngilizce aslı biraz farklı söylenebilir.</p>
-</div>
-<nav class="thumbs" id="thumbs" aria-label="Harfler"></nav>
+<header class="top">
+  <a class="brand" href="#" aria-label="Gençlerden Büyüklere, başa dön">
+    <span class="brand-name">Gençlerden Büyüklere<span class="brand-sub">Gündelik dilin sözlüğü</span></span>
+  </a>
+  <button class="btn menu-btn" id="menuBtn" type="button" aria-controls="fihrist" aria-expanded="false">Kelimeler</button>
+  <label class="search">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+    <input id="search" type="search" placeholder="Kelime ya da anlam ara" aria-label="Sözlükte ara" autocomplete="off">
+  </label>
+  <div class="actions">
+    <button class="btn btn-3d" id="view3dBtn" type="button">3B defter</button>
+    <button class="btn primary" id="camBtn" type="button">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+      Kamerada aç
+    </button>
+  </div>
+</header>
 
-<div class="v3" id="v3" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="v3Title">
-  <div class="v3-top"><h2 id="v3Title">Cep sözlüğü</h2><p>Sürükleyerek döndür, kıstırarak yaklaş.</p><button class="btn" id="v3Close" type="button">Kapat</button></div>
-  <div class="v3-stage" id="v3Stage"><canvas id="v3Canvas" aria-label="Döndürülebilir üç boyutlu sözlük"></canvas><div class="v3-msg" id="v3Msg">Kitap hazırlanıyor…</div></div>
-  <div class="v3-bot"><button class="btn" id="v3Prev" type="button">Geri</button><span class="v3-pos" id="v3Pos">Ön kapak</span><button class="btn dark" id="v3Next" type="button">İleri</button></div>
+<div class="layout">
+  <nav class="fihrist" id="fihrist" aria-label="Kelimeler">
+    <div class="fihrist-head"><strong>Kelimeler</strong><button class="btn" id="fihristClose" type="button">Kapat</button></div>
+    <div id="wordList"></div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="desk">
+    <div class="spread" id="spread">
+      <section class="page page-left" id="pageLeft" aria-label="Kullanım örneği"></section>
+      <div class="spine" aria-hidden="true"></div>
+      <article class="page page-right" id="pageRight" aria-live="polite"></article>
+    </div>
+    <div class="pager">
+      <button class="prev" id="prev" type="button" aria-label="Önceki kelime">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        <span><small>Önceki</small><b id="prevWord"></b></span>
+      </button>
+      <button class="next" id="next" type="button" aria-label="Sonraki kelime">
+        <span><small>Sonraki</small><b id="nextWord"></b></span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+    <p class="hint">Klavyedeki sağ ve sol ok tuşlarıyla da sayfa çevirebilirsin.</p>
+  </main>
+</div>
+
+<div class="view3d" id="view3d" aria-hidden="true">
+  <section class="view3d-panel" role="dialog" aria-modal="true" aria-labelledby="view3dTitle">
+    <header class="view3d-head">
+      <div><h2 id="view3dTitle">Spiralli defter</h2><p>Döndürmek için sürükle, yakınlaştırmak için kıstır.</p></div>
+      <button class="btn" id="view3dClose" type="button">Kapat</button>
+    </header>
+    <div class="view3d-stage" id="view3dStage">
+      <canvas class="view3d-canvas" id="book3dCanvas" aria-label="Döndürülebilir üç boyutlu defter"></canvas>
+      <div class="view3d-loading" id="view3dLoading">Defter hazırlanıyor…</div>
+    </div>
+    <footer class="view3d-foot">
+      <button class="btn" id="book3dPrev" type="button">Geri</button>
+      <span class="view3d-pos" id="book3dPosition">Ön kapak</span>
+      <button class="btn primary" id="book3dNext" type="button">İleri</button>
+      <p class="view3d-tip">Sayfaları kitabın üzerinde sola ya da sağa kaydırarak da çevirebilirsin.</p>
+    </footer>
+  </section>
 </div>
 
 <div class="cam" id="cam" role="dialog" aria-modal="true" aria-label="Kamerada sözlük" aria-hidden="true">
   <video id="camVideo" playsinline webkit-playsinline muted autoplay hidden></video>
-  <div class="cam-top"><span class="cam-pos" id="camPos">Kapak</span><button class="btn" id="camClose" type="button">Kapat</button></div>
-  <div class="cam-stage"><div class="cam-book" id="camBook"><div class="page cover" id="camPage"></div></div></div>
-  <div class="cam-hint">Sola kaydır: ileri. Sağa kaydır: geri.</div>
+  <div class="cam-top"><span class="cam-chip" id="camPos">Kapak</span><button class="cam-chip" id="camClose" type="button">Kapat</button></div>
+  <div class="cam-stage"><div class="cam-book" id="camBook"><div class="cam-page cover" id="camPage"></div></div></div>
+  <div class="cam-hint">Sola kaydır: ileri, sağa kaydır: geri</div>
 </div>
 
 <div class="status" id="status" role="status" aria-live="polite"></div>
 
 <script>
 const words=[{"category":"Sosyal medya ve telefon","word":"post","definition":"Sosyal medyada paylaşılan yazı, fotoğraf veya video.","example":"“Dedemin bahçedeki fotoğrafını post olarak paylaştım.”","meaning":"Fotoğrafı ya da yazıyı sosyal medya hesabında yayımladım.","detail":"Post, bir hesaptan yayımlanan ve profil sayfasında görülebilen paylaşımdır. Yazı, fotoğraf, video ya da bunların birleşimi olabilir. Türkçedeki en yakın karşılığı “gönderi” veya “paylaşım”dır."},{"category":"Sosyal medya ve telefon","word":"story","definition":"Genellikle 24 saat sonra kaybolan kısa sosyal medya paylaşımı.","example":"“Yol manzarasını story’de paylaştı.”","meaning":"Manzarayı, kısa süre görülebilen bir paylaşım olarak yayımladı.","detail":"Story, çoğu sosyal medya uygulamasında yaklaşık 24 saat sonra görünürlükten kalkan kısa paylaşım biçimidir. Gün içinden küçük anları paylaşmak için kullanılır. Kalıcı olarak profilde duran post ile temel farkı, kısa süreli olmasıdır."},{"category":"Sosyal medya ve telefon","word":"like","definition":"Bir paylaşımı beğendiğini göstermek için verilen işaret.","example":"“Yemek tarifimi beğenip like bırakmış.”","meaning":"Tarifi beğendiğini ekrandaki beğeni işaretiyle göstermiş.","detail":"Like, bir içeriğe olumlu tepki verildiğini gösteren beğeni işaretidir. Beğeni sayısı, içeriği kaç kişinin beğendiğini gösterir; kişilerin her konuda aynı fikirde olduğu anlamına gelmez. Türkçede “beğeni bırakmak” da denir."},{"category":"Sosyal medya ve telefon","word":"DM","definition":"“Direct message” kısaltması; bir kişiye özelden gönderilen mesaj.","example":"“Adresini bana DM’den yollar mısın?”","meaning":"Adresini herkese açık olmayan özel mesajla göndermesini istiyor.","detail":"DM, kişiden kişiye gönderilen özel mesajdır. Herkese açık yorum alanından farklı olarak, yazışmayı yalnızca katılan kişiler görür. “Özelden yazmak” ifadesiyle aynı amaçta kullanılır."},{"category":"Sosyal medya ve telefon","word":"link","definition":"Bir internet sayfasına veya içeriğe götüren bağlantı.","example":"“Biletlerin satıldığı sayfanın linkini gönder.”","meaning":"Bilet sayfasını açan internet bağlantısını gönder.","detail":"Link, tıklanınca başka bir internet adresini açan bağlantıdır. Bir sayfaya, videoya veya dosyaya yönlendirebilir. Mesajla gönderilen bağlantıyı açmadan önce adresin güvenilirliğini kontrol etmek iyi olur."},{"category":"Sosyal medya ve telefon","word":"online","definition":"İnternete bağlı veya o anda çevrim içi olmak.","example":"“Akşam online olunca görüntülü konuşalım.”","meaning":"Akşam internete bağlandığında görüntülü konuşalım.","detail":"Online, internete bağlı olmayı ya da bir uygulamada erişilebilir görünmeyi anlatabilir. Bir kişinin online görünmesi, mesajı gördüğü veya hemen yanıt verebileceği anlamına gelmez. Türkçedeki karşılığı “çevrim içi”dir."},{"category":"Sosyal medya ve telefon","word":"offline","definition":"İnternete bağlı olmamak veya çevrim dışı kalmak.","example":"“Metroda internet çekmedi, bir süre offline kaldım.”","meaning":"Metroda bağlantı olmayınca internete erişemedim.","detail":"Offline, internete veya uygulamaya bağlı olmama durumudur. Bağlantı kesilmiş, internet çekmiyor ya da kişi bilerek çevrim dışı kalmış olabilir. Türkçede “çevrim dışı” denir."},{"category":"Sosyal medya ve telefon","word":"screenshot","definition":"Ekranda görünenlerin görüntüsünü kaydetmek; ekran görüntüsü.","example":"“Tarifi kaybetmemek için screenshot aldım.”","meaning":"Tarifin ekranda görünen hâlini görüntü olarak sakladım.","detail":"Screenshot, ekranda o anda görünen bilgilerin resim olarak kaydedilmesidir. Sonradan tekrar bakmak veya bir şeyi göstermek için kullanılır. Görüntüde özel bilgi bulunuyorsa başkalarıyla paylaşırken dikkat etmek gerekir."},{"category":"Sosyal medya ve telefon","word":"scroll","definition":"Ekrandaki sayfayı parmağınla aşağı ya da yukarı kaydırmak.","example":"“Haberleri bulmak için sayfayı biraz scroll et.”","meaning":"Haberler görünene kadar sayfayı parmağınla kaydır.","detail":"Scroll, uzun sayfalardaki içeriği görmek için ekranı parmakla veya fare tekerleğiyle kaydırmaktır. Yukarı ya da aşağı hareket ettikçe sayfanın başka bölümleri görünür. Türkçe arayüzlerde “kaydır” karşılığı kullanılır."},{"category":"Sosyal medya ve telefon","word":"swipe","definition":"Ekranı parmakla yana veya başka bir yöne doğru hızlıca kaydırmak.","example":"“Fotoğraflara bakmak için sola swipe et.”","meaning":"Sonraki fotoğrafı görmek için parmağını sola doğru kaydır.","detail":"Swipe, dokunmatik ekranda parmağı kısa ve hızlı biçimde sürükleme hareketidir. Fotoğraflar arasında geçmek, kart seçmek veya içeriği kapatmak için kullanılabilir. Hangi hareketin ne yaptığı uygulamaya göre değişebilir."},{"category":"Sosyal medya ve telefon","word":"unfollow","definition":"Bir kişinin paylaşımlarını artık takip etmemek.","example":"“Sayfa çok sık paylaşım yapınca unfollow ettim.”","meaning":"O sayfanın yeni paylaşımlarını görmemek için takibi bıraktım.","detail":"Unfollow, bir hesabı takip etmeyi bırakmaktır. Bu işlem genellikle o hesabın yeni paylaşımlarının ana akışta görünmesini durdurur. Hesabı engellemekten farklıdır; profil çoğunlukla hâlâ görülebilir."},{"category":"Sosyal medya ve telefon","word":"update","definition":"Bir uygulamanın veya cihazın daha yeni sürümünü yüklemek; güncelleme.","example":"“Telefonundaki uygulamaya update gelmiş.”","meaning":"Uygulamanın daha yeni bir sürümü yayımlanmış.","detail":"Update, uygulama veya cihaz yazılımının yeni sürümünü yüklemektir. Güncelleme yeni özellikler ekleyebilir, hataları düzeltebilir ya da güvenliği iyileştirebilir. Türkçede “güncelleme” denir."},{"category":"Duygular ve ilişkiler","word":"cringe","definition":"Birinin yaptığı şey karşısında utanma veya rahatsızlık hissetmek.","example":"“Eski dans videomu görünce cringe oldum.”","meaning":"Eski videomu görünce başkası adına utanır gibi oldum.","detail":"Cringe, kişinin kendi yaptığı ya da başkasının yaptığı bir şeyden dolayı içinin sıkılması veya başkası adına utanmasıdır. Genellikle tuhaf, yapmacık ya da rahatsız edici bulunan anlarda söylenir. “Çok cringe” demek, “izlerken bile utandım” gibi bir tepki taşır."},{"category":"Duygular ve ilişkiler","word":"random","definition":"Beklenmedik, konu dışı ya da nereden çıktığı pek anlaşılmayan şey.","example":"“Sohbetin ortasında random bir soru sordu.”","meaning":"Konuyla ilgisiz, beklenmedik bir soru sordu.","detail":"Random, konuşmanın akışına uymayan veya beklenmedik biçimde ortaya çıkan şeyler için kullanılır. Bir soru, fikir, video ya da karşılaşma random bulunabilir. Bağlama göre “alakasız”, “rastgele” veya “ansızın” diye çevrilebilir."},{"category":"Duygular ve ilişkiler","word":"vibe","definition":"Bir kişinin, ortamın veya şeyin verdiği genel hava ve his.","example":"“Bu kafenin sakin bir vibe’ı var.”","meaning":"Bu kafe insana sakinlik veren bir havaya sahip.","detail":"Vibe, bir ortamın ya da kişinin insanda bıraktığı genel izlenimi anlatır. Bu his rahat, neşeli, gergin veya nostaljik olabilir. Sözcük çoğunlukla ölçülebilir bir özellikten çok kişisel bir izlenimi ifade eder."},{"category":"Duygular ve ilişkiler","word":"mood","definition":"O anki ruh hâli; bazen kişinin kendini bir durumla özdeşleştirmesi.","example":"“Bugünkü mood’um evde kitap okumak.”","meaning":"Bugün kendimi evde kitap okumak isterken buluyorum.","detail":"Mood, o an hissedilen ruh hâlidir. İnternet dilinde bir fotoğrafın ya da durumun kişinin kendi hâlini iyi anlattığını söylemek için de kullanılır. “Bugünkü mood” o günkü isteği veya enerjiyi belirtir."},{"category":"Duygular ve ilişkiler","word":"toxic","definition":"Kişiye zarar veren, yıpratıcı veya sağlıksız davranış ya da ilişki.","example":"“Sürekli küçümseyen sözler toxic bir davranış.”","meaning":"Birini sürekli küçümsemek yıpratıcı ve sağlıksız bir davranıştır.","detail":"Toxic, tek seferlik anlaşmazlıktan çok, tekrarlandığında kişiyi yıpratan ilişki veya davranışlar için kullanılır. Sürekli aşağılama, kontrol etme ya da suçlu hissettirme buna örnek olabilir. Sözcük, insanı etiketlemekten ziyade davranışın zararını anlatır."},{"category":"Duygular ve ilişkiler","word":"ghostlamak","definition":"Birine açıklama yapmadan mesajlarına cevap vermeyi ve iletişim kurmayı kesmek.","example":"“Birkaç buluşmadan sonra beni ghostladı.”","meaning":"Birkaç buluşmadan sonra açıklama yapmadan iletişimi kesti.","detail":"Ghostlamak, iletişimi açıklama yapmadan aniden kesmek demektir. Mesajları yanıtsız bırakmak veya aramalara dönmemek buna örnek olabilir. Sözcük özellikle arkadaşlık ve flört ilişkilerindeki iletişim kopuşlarını anlatır."},{"category":"Duygular ve ilişkiler","word":"stalklamak","definition":"Birinin sosyal medya paylaşımlarını uzun uzun incelemek; çoğu zaman gizlice araştırmak anlamında kullanılır.","example":"“Yeni tanıştığı kişinin herkese açık hesabını akşam boyunca stalkladı.”","meaning":"Yeni tanıştığı kişinin herkese açık paylaşımlarını sosyal medyadan uzun uzun inceledi.","detail":"Gündelik kullanımda stalklamak, birinin herkese açık sosyal medya içeriklerini merak edip geriye doğru incelemektir. Kelime şakacı biçimde söylense de özel hesaplara izinsiz erişmeyi veya kişiyi rahatsız edecek takibi haklı çıkarmaz. “Sosyal medyada araştırmak” diye açıklanabilir."},{"category":"Duygular ve ilişkiler","word":"ship etmek","definition":"İki kişinin sevgili olmasını istemek veya onları birbirine yakıştırmak.","example":"“Dizideki iki karakteri çok ship ediyorlar.”","meaning":"İzleyiciler bu iki karakterin sevgili olmasını istiyor.","detail":"Ship etmek, çoğunlukla dizi ve filmlerde iki kişiyi çift olarak yakıştırmak, onların sevgili olmasını istemektir. Gerçek kişiler için söylendiğinde bu, kişinin özel hayatı hakkındaki bir temennidir. Türkçedeki yakın karşılığı “birbirine yakıştırmak”tır."},{"category":"Duygular ve ilişkiler","word":"crush","definition":"Birinden hoşlanma; çoğunlukla henüz sevgili olunmamış kişiye duyulan ilgi.","example":"“Lisedeki crush’ıyla yıllar sonra karşılaştı.”","meaning":"Lisede hoşlandığı kişiyle yıllar sonra karşılaştı.","detail":"Crush, birine duyulan hoşlanma veya hayranlıktır; bu ilginin karşılıklı ya da açıklanmış olması gerekmez. “Crush’ım” dendiğinde çoğunlukla kişinin hoşlandığı biri kastedilir. “Sevgili” anlamına gelmez."},{"category":"Duygular ve ilişkiler","word":"date","definition":"İki kişinin birbirini tanımak veya birlikte vakit geçirmek için yaptığı buluşma.","example":"“Hafta sonu ilk date’lerine çıkacaklar.”","meaning":"Hafta sonu birbirlerini tanımak için ilk kez buluşacaklar.","detail":"Date, iki kişinin tanışmak veya birbirini daha iyi tanımak için yaptığı planlı buluşmadır. Her date ilişkinin başladığı anlamına gelmez; bazen yalnızca ilk tanışma görüşmesidir. Bağlama göre “buluşma” ya da “tanışma randevusu” denebilir."},{"category":"Duygular ve ilişkiler","word":"bestie","definition":"Çok yakın arkadaş; can dost.","example":"“Bu haberi önce bestie’me anlattım.”","meaning":"Bu haberi önce en yakın arkadaşıma anlattım.","detail":"Bestie, çok yakın ve güvenilen arkadaş için kullanılan samimi bir sözdür. “En iyi arkadaşım” veya “can dostum” karşılığındadır. Genellikle arkadaşlar arasında sıcak ve şakacı bir hitaptır."},{"category":"Duygular ve ilişkiler","word":"bro","definition":"“Kardeşim” veya “dostum” gibi kullanılan samimi hitap.","example":"“Bro, şu çantayı taşımama yardım eder misin?”","meaning":"“Dostum, şu çantayı taşımama yardım eder misin?”","detail":"Bro, İngilizcedeki brother kelimesinin kısaltmasıdır. Günlük konuşmada gerçek kardeş için şart değildir; arkadaşlara “dostum” veya “kardeşim” der gibi söylenir. Resmî ortamlardan çok samimi konuşmalara uygundur."},{"category":"İnternet kültürü","word":"spoiler","definition":"Bir film, dizi veya kitabın önemli bir olayını önceden açıklamak.","example":"“Dizinin sonunu söyleme, spoiler verme.”","meaning":"Dizide ne olduğunu önceden anlatarak sürprizi bozma.","detail":"Spoiler, bir eserin sürprizini bozabilecek önemli bir olayın önceden anlatılmasıdır. Finali, karakterin başına gelenleri veya gizemin çözümünü söylemek spoiler sayılabilir. Bu nedenle insanlar çoğu zaman karşısındakine eseri izleyip izlemediğini sorar."},{"category":"İnternet kültürü","word":"challenge","definition":"İnsanların belirli bir hareketi veya görevi yapıp paylaştığı internet akımı.","example":"“Herkes aynı dans challenge’ını çekiyor.”","meaning":"Herkes internette yayılan aynı dans görevini yapıp videosunu paylaşıyor.","detail":"Challenge, internette yayılan ve insanların aynı görevi ya da hareketi yaparak katıldığı akımdır. Dans, beceri gösterisi veya belirli bir soruya yanıt verme örnek olabilir. Her akım güvenli olmayabileceği için katılmadan önce ne içerdiğine bakmak gerekir."},{"category":"İnternet kültürü","word":"flex","definition":"Sahip olunan bir şeyi ya da başarıyı gösteriş yapar gibi öne çıkarmak.","example":"“Yeni saatini her fırsatta gösteriyor; biraz flex yapıyor.”","meaning":"Yeni saatini göstererek onunla övünüyor.","detail":"Flex yapmak, sahip olunan eşya, başarı veya imkânı özellikle görünür kılarak övünmektir. Sözcük çoğu zaman hafif alaycı bir tonda kullanılır. Bir şeyi göstermek tek başına flex değildir; gösteriş amacı öne çıktığında bu anlamı kazanır."},{"category":"İnternet kültürü","word":"hype","definition":"Bir şey hakkında oluşan büyük heyecan ve beklenti.","example":"“Yeni filmin etrafında büyük bir hype oluştu.”","meaning":"Yeni film için çok heyecan ve beklenti oluştu.","detail":"Hype, bir konu çevresinde büyüyen heyecan ve beklentidir. Yeni film, ürün veya etkinlik için oluşabilir. Hype’ın yüksek olması, gerçek deneyimin beklentiyi karşılayacağı anlamına gelmez."},{"category":"İnternet kültürü","word":"fan","definition":"Bir sanatçıyı, takımı veya eseri çok seven kişi.","example":"“Annem de bu oyuncunun fanı.”","meaning":"Annem de bu oyuncuyu çok seviyor ve çalışmalarını takip ediyor.","detail":"Fan, bir sanatçıya, takıma, yapıma veya başka bir ilgi alanına güçlü bağlılık duyan kişidir. Fanlar sevdikleri kişiyi ya da eseri takip eder ve başkalarıyla konuşur. Türkçede “hayran” karşılığı kullanılır."},{"category":"İnternet kültürü","word":"influencer","definition":"Sosyal medyadaki paylaşımlarıyla takipçilerinin düşünce ve tercihlerini etkileyebilen kişi.","example":"“Influencer, kullandığı kahve makinesini tanıttı.”","meaning":"Sosyal medyada etkili olan kişi kullandığı kahve makinesinden söz etti.","detail":"Influencer, sosyal medyada çok kişiye ulaşan ve içerikleriyle takipçilerinin tercihlerini etkileyebilen kişidir. Moda, yemek, teknoloji veya gezi gibi alanlarda paylaşım yapabilir. Ürün tanıtımlarının bir bölümü ücretli iş birliği olabilir."},{"category":"İnternet kültürü","word":"viral","definition":"İnternette çok hızlı ve geniş biçimde yayılan içerik.","example":"“Kedinin videosu bir günde viral oldu.”","meaning":"Kedinin videosu bir günde çok sayıda kişiye ulaştı.","detail":"Viral içerik, kullanıcıların paylaşmasıyla kısa sürede geniş kitlelere ulaşır. Video, fotoğraf, haber veya espri viral olabilir. Hızla yayılması, içeriğin doğru ya da güvenilir olduğu anlamına gelmez."},{"category":"İnternet kültürü","word":"edit","definition":"Fotoğraf veya videoda yapılan düzenleme; sosyal medyada çoğu zaman müzikli, kesilip birleştirilmiş kısa video.","example":"“Eski aile fotoğraflarından güzel bir edit hazırlamış.”","meaning":"Aile fotoğraflarını düzenleyip müzikli kısa bir video yapmış.","detail":"Edit, içeriği düzenleme işlemine veya düzenlenmiş ürüne denebilir. Kısa videolarda sahneler kesilip sıralanır, müzik ve yazı eklenebilir. Bu nedenle edit, basit bir kesmenin yanında yaratıcı bir anlatım biçimi de olabilir."},{"category":"İnternet kültürü","word":"fake","definition":"Gerçek olmayan, sahte veya yanıltıcı.","example":"“Bu hesabın gerçek olup olmadığını kontrol et; fake olabilir.”","meaning":"Bu hesap sahte veya insanları yanıltmak için açılmış olabilir.","detail":"Fake, gerçekmiş gibi sunulan sahte içerik, hesap veya bilgi için kullanılır. Fotoğraf düzenlenmiş, profil taklit ya da haber uydurma olabilir. Şüpheli bir şeyi paylaşmadan önce güvenilir başka kaynaklardan doğrulamak gerekir."},{"category":"İnternet kültürü","word":"fail","definition":"Başarısızlıkla ya da komik bir hatayla sonuçlanan durum.","example":"“Keki ters çevirirken yaşanan küçük bir fail videoya girdi.”","meaning":"Keki ters çevirirken yapılan komik hata videoda göründü.","detail":"Fail, bir işin ters gitmesiyle ortaya çıkan hata veya başarısızlık anıdır. İnternet paylaşımlarında çoğunlukla komik ya da talihsiz aksilik için söylenir. Sözcüğün şakacı tonu, her hatanın komik olduğu anlamına gelmez."},{"category":"İnternet kültürü","word":"cool","definition":"Beğenilen, havalı veya rahat tavırlı görülen kişi ya da şey.","example":"“Torunumun çizdiği afiş çok cool olmuş.”","meaning":"Torunumun çizdiği afiş çok havalı ve dikkat çekici olmuş.","detail":"Cool, bir şeyi havalı, etkileyici veya beğenilir bulduğunu anlatır. Bir kişi için kullanıldığında rahat ve kendinden emin tavrı da ima edebilir. Türkçe karşılığı bağlama göre “havalı”, “güzel” veya “etkileyici” olabilir."},{"category":"İnternet kültürü","word":"POV","definition":"“Bakış açısı” anlamında kullanılır; videonun hangi kişinin gözünden veya hangi durumda izlenmesi gerektiğini anlatır.","example":"“POV: Pazartesi sabahı alarmı beş kez erteliyorsun.”","meaning":"Video, pazartesi sabahı alarmı tekrar tekrar erteleyen kişinin durumunu canlandırıyor.","detail":"POV, İngilizce point of view ifadesinin kısaltmasıdır ve “bakış açısı” demektir. Kısa videolarda izleyiciye belirli bir kişinin yerindeymiş gibi bir durum gösterilir. Başlıktaki senaryo, videonun hangi açıdan izleneceğini anlatır."},{"category":"Kısaltmalar ve ifadeler","word":"LOL","definition":"“Laughing out loud” kısaltması; yazışmada “çok güldüm” demek.","example":"“O fıkraya LOL yazmış.”","meaning":"Fıkrayı çok komik bulduğunu mesajla belirtmiş.","detail":"LOL, İngilizce laughing out loud ifadesinin baş harfleridir. Yazışmada bir şeye güldüğünü ya da onu komik bulduğunu belirtir. Her zaman gerçekten kahkaha atıldığı anlamına gelmez; bazen cümleye samimi ve hafif bir ton katar."},{"category":"Kısaltmalar ve ifadeler","word":"OMG","definition":"“Oh my God” kısaltması; şaşkınlık veya heyecanı anlatan “Aman Allah’ım!” benzeri ifade.","example":"“OMG, bu kadar güzel olacağını beklemiyordum!”","meaning":"“Aman Allah’ım, bu kadar güzel olacağını beklemiyordum!”","detail":"OMG, İngilizce oh my God ifadesinin kısaltmasıdır. Şaşkınlık, sevinç, endişe veya heyecanı vurgular. Türkçede duruma göre “Aman Allah’ım!”, “Vay canına!” veya “Yok artık!” gibi anlaşılabilir."},{"category":"Kısaltmalar ve ifadeler","word":"FOMO","definition":"Bir etkinliği veya gelişmeyi kaçırma korkusu; başkaları bir şey yaşarken dışında kalmış hissetmek.","example":"“Arkadaşları gezi fotoğraflarını paylaşınca FOMO yaşadı.”","meaning":"Arkadaşlarının gezisine katılamadığı için bir şeyleri kaçırmış gibi hissetti.","detail":"FOMO, İngilizce fear of missing out ifadesinin kısaltmasıdır. Başkalarının yaptığı bir şeyi kaçırma veya gelişmelerden geri kalma kaygısını anlatır. Sosyal medyada başkalarının etkinliklerini sürekli görmek bu hissi artırabilir."},{"category":"Kısaltmalar ve ifadeler","word":"cancel etmek","definition":"Bir kişiyi veya davranışını topluca eleştirmek ve desteklemeyi bırakmak.","example":"“Eski açıklamaları ortaya çıkınca insanlar onu cancel etmeye başladı.”","meaning":"Eski açıklamaları nedeniyle birçok kişi onu eleştirip desteklemeyi bıraktı.","detail":"Cancel etmek, bir kişinin sözleri veya davranışları nedeniyle çevrim içi ortamda yoğun eleştiri görmesi ve insanların desteğini çekmesi anlamında kullanılır. Bazen haklı bir tepkiyi, bazen ölçüsüz bir toplu yargılamayı anlatabilir. Hangi anlamda kullanıldığı bağlamdan anlaşılır."}];
-const OKUNUS={'post':'post','story':'stori','like':'layk','DM':'di em','link':'link','online':'onlayn','offline':'oflayn','screenshot':'skrinşat','scroll':'skrol','swipe':'suayp','unfollow':'anfolou','update':'apdeyt','cringe':'krinc','random':'rendım','vibe':'vayb','mood':'mud','toxic':'toksik','ghostlamak':'goustlamak','stalklamak':'stoklamak','ship etmek':'şip etmek','crush':'kraş','date':'deyt','bestie':'besti','bro':'bro','spoiler':'spoyler','challenge':'çelınç','flex':'fleks','hype':'hayp','fan':'fen','influencer':'influınsır','viral':'vayral','edit':'edit','fake':'feyk','fail':'feyl','cool':'kul','POV':'pi o vi','LOL':'lol','OMG':'o em ci','FOMO':'fomo','cancel etmek':'kensıl etmek'};
-const KOKEN={'DM':'İng. direct message','LOL':'İng. laughing out loud','OMG':'İng. oh my God','FOMO':'İng. fear of missing out','POV':'İng. point of view','ghostlamak':'İng. ghost + -lamak','stalklamak':'İng. stalk + -lamak','ship etmek':'İng. ship','cancel etmek':'İng. cancel'};
-const dict=[...words].sort((a,b)=>a.word.localeCompare(b.word,'tr',{sensitivity:'base'}));
-const TOTAL=dict.length,$=s=>document.querySelector(s);
-const SERIF='"Alegreya", Georgia, serif';
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const fold=s=>String(s).toLocaleLowerCase('tr');
-const letterOf=w=>w.word[0].toLocaleUpperCase('tr');
-const okunus=w=>OKUNUS[w.word]||w.word;
-const koken=w=>KOKEN[w.word]||'İng.';
-const slug=w=>encodeURIComponent(w.word.replace(/\s+/g,'-'));
-const LETTERS=[...new Set(dict.map(letterOf))];
+const TOTAL=words.length,pad2=n=>String(n).padStart(2,'0'),$=s=>document.querySelector(s);
+const FD='"Atkinson Hyperlegible Next", Arial, sans-serif',FB='"Atkinson Hyperlegible Next", Arial, sans-serif';
+let current=0;
+
+/* ortak yardımcılar */
 const statusEl=$('#status');let statusTimer;
-function say(m,ms=3200){statusEl.textContent=m;clearTimeout(statusTimer);if(ms)statusTimer=setTimeout(()=>statusEl.textContent='',ms)}
+function say(message,ms=3200){statusEl.textContent=message;clearTimeout(statusTimer);if(ms)statusTimer=setTimeout(()=>statusEl.textContent='',ms)}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+const unquote=s=>String(s).trim().replace(/^[“"]/,'').replace(/[”"]$/,'');
+const fold=s=>String(s).toLocaleLowerCase('tr');
 
-/* sözlük sayfası */
-function entryHTML(w){
-  return `<p><span class="hw">${esc(w.word)}</span> <span class="ok">[${esc(okunus(w))}]</span> <span class="or">${esc(koken(w))}</span> ${esc(w.definition)}</p>`+
-    `<p class="ex"><i>${esc(w.example)}</i> <span class="ya">yani</span> ${esc(w.meaning)}</p>`+
-    `<p class="nt">${esc(w.detail)}</p>`;
-}
-function buildEntries(){
-  const box=$('#entries');box.replaceChildren();
-  for(const L of LETTERS){
-    const h=document.createElement('h2');h.className='letter';h.id='harf-'+L;h.textContent=L;box.append(h);
-    dict.filter(w=>letterOf(w)===L).forEach(w=>{const a=document.createElement('article');a.className='e';a.id=slug(w);a.dataset.word=w.word;a.dataset.letter=L;a.innerHTML=entryHTML(w);box.append(a)});
+/* fihrist */
+function renderList(){
+  const q=fold($('#search').value.trim()),list=$('#wordList');list.replaceChildren();
+  const groups=new Map();
+  words.forEach((w,i)=>{
+    if(q&&!fold(`${w.word} ${w.category} ${w.definition} ${w.meaning}`).includes(q))return;
+    if(!groups.has(w.category))groups.set(w.category,[]);
+    groups.get(w.category).push(i);
+  });
+  if(!groups.size){const p=document.createElement('p');p.className='fihrist-empty';p.textContent=`“${$('#search').value.trim()}” geçen bir kelime yok. Başka bir kelime dene.`;list.append(p);return}
+  for(const [cat,ids] of groups){
+    const h=document.createElement('h2');h.textContent=cat;const ul=document.createElement('ul');
+    for(const i of ids){
+      const li=document.createElement('li'),b=document.createElement('button');
+      b.type='button';b.innerHTML=`<span>${escapeHtml(words[i].word)}</span>`;
+      b.setAttribute('aria-current',i===current?'true':'false');
+      b.addEventListener('click',()=>{go(i);closeFihrist()});
+      li.append(b);ul.append(li);
+    }
+    list.append(h,ul);
   }
-  const empty=document.createElement('p');empty.className='empty';empty.id='empty';empty.hidden=true;box.append(empty);
-  const nav=$('#thumbs');nav.replaceChildren();
-  for(const L of LETTERS){const a=document.createElement('a');a.href='#harf-'+L;a.textContent=L;a.dataset.letter=L;nav.append(a)}
 }
-function filter(){
-  const raw=$('#search').value.trim(),q=fold(raw);let shown=0;const live=new Set();
-  document.querySelectorAll('.e').forEach(el=>{const w=dict.find(x=>x.word===el.dataset.word);const ok=!q||fold(`${w.word} ${okunus(w)} ${w.definition} ${w.meaning} ${w.detail}`).includes(q);el.hidden=!ok;if(ok){shown++;live.add(el.dataset.letter)}});
-  document.querySelectorAll('.letter').forEach(h=>h.hidden=!live.has(h.textContent));
-  document.querySelectorAll('.thumbs a').forEach(a=>a.classList.toggle('off',!live.has(a.dataset.letter)));
-  const em=$('#empty');em.hidden=shown>0;em.textContent=shown?'':`“${raw}” bu sözlükte geçmiyor. Daha kısa bir kelimeyle tekrar dene.`;
-}
-$('#search').addEventListener('input',filter);
-function goToWord(w){const el=document.getElementById(slug(w));if(!el)return;document.querySelectorAll('.e.lit').forEach(x=>x.classList.remove('lit'));el.classList.add('lit');el.scrollIntoView({block:'center'});try{history.replaceState(null,'','#'+slug(w))}catch{}}
+function openFihrist(){$('#fihrist').classList.add('open');$('#scrim').classList.add('open');$('#menuBtn').setAttribute('aria-expanded','true')}
+function closeFihrist(){$('#fihrist').classList.remove('open');$('#scrim').classList.remove('open');$('#menuBtn').setAttribute('aria-expanded','false')}
+$('#menuBtn').addEventListener('click',openFihrist);
+$('#fihristClose').addEventListener('click',closeFihrist);
+$('#scrim').addEventListener('click',closeFihrist);
+$('#search').addEventListener('input',renderList);
 
-/* tuval yardımcıları */
+/* defter sayfaları */
+function showWord(index,dir=1){
+  current=Math.max(0,Math.min(TOTAL-1,index));
+  const w=words[current],R=$('#pageRight'),L=$('#pageLeft');
+  R.innerHTML=`<div class="page-head"><span>Konu: <b>${escapeHtml(w.category)}</b></span><span>${current+1} / ${TOTAL}</span></div>
+    <h1 class="word"><span class="mark">${escapeHtml(w.word)}</span></h1>
+    <p class="definition">${escapeHtml(w.definition)}</p>
+    <h2 class="note-label">Biraz daha açalım</h2>
+    <p class="detail">${escapeHtml(w.detail)}</p>`;
+  L.innerHTML=`<div class="page-head"><span>Gençler şöyle der</span></div>
+    <div class="chat"><p class="bubble">${escapeHtml(unquote(w.example))}</p><span class="bubble-meta">Günlük konuşmadan bir örnek</span></div>
+    <p class="note-label">Yani</p>
+    <p class="meaning">${escapeHtml(w.meaning)}</p>
+    <p class="left-foot">Bu defter, gençlerin her gün kullandığı ${TOTAL} kelimeyi büyükler için açıklıyor.</p>`;
+  for(const el of [R,L]){el.classList.remove('flip-in-next','flip-in-prev');void el.offsetWidth;el.classList.add(dir<0?'flip-in-prev':'flip-in-next')}
+  $('#prev').disabled=current===0;$('#next').disabled=current===TOTAL-1;
+  $('#prevWord').textContent=current>0?words[current-1].word:'';
+  $('#nextWord').textContent=current<TOTAL-1?words[current+1].word:'';
+  renderList();
+  try{history.replaceState(null,'','#'+encodeURIComponent(w.word))}catch{}
+}
+function go(i){if(i<0||i>=TOTAL||i===current)return;showWord(i,i>current?1:-1)}
+const next=()=>go(current+1),previous=()=>go(current-1);
+$('#prev').addEventListener('click',previous);
+$('#next').addEventListener('click',next);
+let touchX=null;
+$('#spread').addEventListener('touchstart',e=>{touchX=e.changedTouches[0].clientX},{passive:true});
+$('#spread').addEventListener('touchend',e=>{if(touchX===null)return;const dx=e.changedTouches[0].clientX-touchX;touchX=null;if(Math.abs(dx)>60)(dx<0?next:previous)()},{passive:true});
+document.addEventListener('keydown',e=>{
+  if(e.target.matches('input,textarea'))return;
+  if(cam.classList.contains('open')){if(e.key==='ArrowRight')camFlip(1);else if(e.key==='ArrowLeft')camFlip(-1);else if(e.key==='Escape')closeCam();return}
+  if(view3d.classList.contains('open')){if(e.key==='Escape')closeBook3d();else if(e.key==='ArrowRight')flip3DPage(-1);else if(e.key==='ArrowLeft')flip3DPage(1);return}
+  if(e.key==='Escape')closeFihrist();
+  if(e.key==='ArrowRight')next();
+  if(e.key==='ArrowLeft')previous();
+});
+
+/* tuval çizim yardımcıları (3B) */
+function rr(x,X,Y,W,H,r){x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+W,Y,X+W,Y+H,r);x.arcTo(X+W,Y+H,X,Y+H,r);x.arcTo(X,Y+H,X,Y,r);x.arcTo(X,Y,X+W,Y,r);x.closePath()}
 function wrapLines(x,text,maxW,maxLines){
   const parts=String(text||'').split(/\s+/),lines=[];let line='';
   for(let i=0;i<parts.length;i++){
@@ -203,179 +355,195 @@ function wrapLines(x,text,maxW,maxLines){
   if(line)lines.push(line);
   return lines;
 }
-const PW=660,PH=940;
-function pageCanvas(){const c=document.createElement('canvas');c.width=PW;c.height=PH;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,PW,PH);x.textBaseline='alphabetic';return[c,x]}
-function drawEntry(x,w,X,Y,W,maxY){
-  // madde başı satırı
-  x.fillStyle='#000';x.font=`800 40px ${SERIF}`;x.fillText(w.word,X,Y);let cx=X+x.measureText(w.word).width+12;
-  x.font=`400 26px ${SERIF}`;x.fillStyle='#555';const ok=`[${okunus(w)}]`;
-  if(cx+x.measureText(ok).width>X+W){Y+=32;cx=X}
-  x.fillText(ok,cx,Y);Y+=38;
-  x.fillStyle='#000';x.font=`400 27px ${SERIF}`;
-  for(const l of wrapLines(x,w.definition,W,3)){x.fillText(l,X,Y);Y+=34}
-  Y+=6;x.font=`italic 400 25px ${SERIF}`;
-  for(const l of wrapLines(x,w.example,W-22,3)){x.fillText(l,X+22,Y);Y+=32}
-  x.fillStyle='#333';x.font=`400 24px ${SERIF}`;
-  for(const l of wrapLines(x,'yani '+w.meaning,W-22,3)){x.fillText(l,X+22,Y);Y+=31}
-  const room=Math.floor((maxY-Y-8)/29);
-  if(room>0){x.fillStyle='#444';x.font=`400 22px ${SERIF}`;Y+=4;for(const l of wrapLines(x,w.detail,W-22,Math.min(room,4))){x.fillText(l,X+22,Y);Y+=29}}
-  return Y;
+function drawLines(x,lines,X,Y,lh){lines.forEach((l,i)=>x.fillText(l,X,Y+i*lh));return Y+lines.length*lh}
+function gridPaper(x,X,Y,W,H){
+  x.fillStyle='#FBFCF8';x.fillRect(X,Y,W,H);
+  x.strokeStyle='#DFE9F1';x.lineWidth=1.5;x.beginPath();
+  for(let gx=X+30;gx<X+W;gx+=30){x.moveTo(gx,Y);x.lineTo(gx,Y+H)}
+  for(let gy=Y+30;gy<Y+H;gy+=30){x.moveTo(X,gy);x.lineTo(X+W,gy)}
+  x.stroke();
+  x.fillStyle='rgba(224,74,79,.75)';x.fillRect(X+62,Y,3,H);
 }
-// içerik sayfası k: dict[2k], dict[2k+1]; çift k sağ sayfa
-const PAGES=Math.ceil(TOTAL/2);
-function contentPage(k){
-  const[c,x]=pageCanvas(),right=k%2===0,a=dict[2*k],b=dict[2*k+1];
-  const X=right?44:70,W=PW-114;
-  x.fillStyle='#000';x.font=`italic 400 24px ${SERIF}`;
-  x.textAlign=right?'right':'left';x.fillText(right&&b?b.word:a.word,right?X+W:X,52);
-  x.textAlign=right?'left':'right';x.fillText(String(k+1),right?X:X+W,52);x.textAlign='left';
-  x.fillRect(X,64,W,2);
-  let y=drawEntry(x,a,X,118,W,b?500:PH-40);
-  if(b){y=Math.max(y+24,520);drawEntry(x,b,X,y,W,PH-40)}
-  // harf sekmesi
-  const L=letterOf(a),li=LETTERS.indexOf(L),th=Math.min(60,(PH-120)/LETTERS.length),ty=60+li*th;
-  x.fillStyle='#B5121B';const tx=right?PW-26:0;x.fillRect(tx,ty,26,th-4);
-  x.fillStyle='#fff';x.font=`800 20px ${SERIF}`;x.textAlign='center';x.fillText(L,tx+13,ty+th/2+5);x.textAlign='left';
-  // iç kenar gölgesi
-  const g=x.createLinearGradient(right?0:PW-40,0,right?40:PW,0);g.addColorStop(right?0:1,'rgba(0,0,0,.18)');g.addColorStop(right?1:0,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(right?0:PW-40,0,40,PH);
+function pageHead(x,X,Y,W,left,right){
+  x.font=`400 22px ${FB}`;x.fillStyle='#556074';x.textAlign='left';x.fillText(left,X,Y);
+  if(right){x.textAlign='right';x.fillText(right,X+W,Y);x.textAlign='left'}
+  x.fillStyle='#1D3F8F';x.fillRect(X,Y+14,W,3);
+}
+function texCanvas(){const c=document.createElement('canvas');c.width=1200;c.height=850;return c}
+function book3dCoverTexture(){
+  const c=texCanvas(),x=c.getContext('2d');
+  x.fillStyle='#1D3F8F';x.fillRect(0,0,1200,850);
+  x.strokeStyle='rgba(255,255,255,.05)';x.lineWidth=3;
+  for(let i=-850;i<1200;i+=14){x.beginPath();x.moveTo(i,0);x.lineTo(i+850,850);x.stroke()}
+  drawLabel(x,300,230,600,390);
+  x.fillStyle='#fff';x.font=`700 26px ${FB}`;x.textAlign='center';x.fillText('Açmak için sola kaydır',600,760);x.textAlign='left';
   return c;
 }
-function titlePage(){
-  const[c,x]=pageCanvas();x.textAlign='center';x.fillStyle='#000';
-  x.font=`800 54px ${SERIF}`;['Gençlerden','Büyüklere','Sözlüğü'].forEach((t,i)=>x.fillText(t,PW/2,300+i*62));
-  x.fillRect(PW/2-60,500,120,2);
-  x.font=`400 28px ${SERIF}`;x.fillStyle='#333';x.fillText(`Gençlerin günlük dilinden ${TOTAL} kelime`,PW/2,560);
-  x.font=`italic 400 24px ${SERIF}`;x.fillText('okunuşları, anlamları ve örnekleriyle',PW/2,600);
-  x.textAlign='left';return c;
+function drawLabel(x,X,Y,W,H){
+  x.fillStyle='rgba(0,0,0,.18)';rr(x,X,Y+10,W,H,26);x.fill();
+  x.fillStyle='#fff';rr(x,X,Y,W,H,26);x.fill();
+  x.strokeStyle='#1D3F8F';x.lineWidth=4;rr(x,X+12,Y+12,W-24,H-24,18);x.stroke();
+  const L=X+44,R=X+W-44;
+  x.fillStyle='#556074';x.font=`400 24px ${FB}`;x.fillText('Adı',L,Y+78);
+  x.fillStyle='#1D3F8F';x.font=`800 50px ${FD}`;x.fillText('Gençlerden',L,Y+138);x.fillText('Büyüklere',L,Y+190);
+  const rows=[['Dersi','Gündelik dil'],['Sınıfı','Herkes'],['Kelime',String(TOTAL)]];
+  rows.forEach(([k,v],i)=>{
+    const y=Y+252+i*48;
+    x.fillStyle='#556074';x.font=`400 24px ${FB}`;x.fillText(k,L,y);
+    x.fillStyle='#000';x.font=`700 26px ${FB}`;x.fillText(v,L+120,y);
+    x.strokeStyle='#9AA6B4';x.lineWidth=2;x.setLineDash([3,6]);x.beginPath();x.moveTo(L,y+14);x.lineTo(R,y+14);x.stroke();x.setLineDash([]);
+  });
 }
-function indexPage(){
-  const[c,x]=pageCanvas();x.fillStyle='#000';x.font=`800 34px ${SERIF}`;x.fillText('Dizin',70,90);x.fillRect(70,104,PW-140,2);
-  const rows=Math.ceil(TOTAL/2),lh=Math.min(36,(PH-180)/rows);
-  x.font=`400 23px ${SERIF}`;
-  dict.forEach((w,i)=>{const col=Math.floor(i/rows),row=i%rows,X=70+col*270,Y=150+row*lh;x.fillStyle='#000';x.fillText(w.word,X,Y);x.fillStyle='#555';x.textAlign='right';x.fillText(String(Math.floor(i/2)+1),X+240,Y);x.textAlign='left'});
+function backCoverTexture(){
+  const c=texCanvas(),x=c.getContext('2d');
+  x.fillStyle='#1D3F8F';x.fillRect(0,0,1200,850);
+  x.fillStyle='#fff';x.font=`800 44px ${FD}`;x.textAlign='center';x.fillText('Kelime tablosu',600,100);x.textAlign='left';
+  const cols=4,rows=Math.ceil(TOTAL/cols),cw=255,ch=Math.min(58,600/rows),X0=600-cw*cols/2,Y0=150;
+  for(let i=0;i<TOTAL;i++){
+    const col=Math.floor(i/rows),row=i%rows,X=X0+col*cw,Y=Y0+row*ch;
+    x.fillStyle=row%2?'rgba(255,255,255,.06)':'rgba(255,255,255,.12)';x.fillRect(X+6,Y,cw-12,ch-6);
+    x.fillStyle='rgba(255,255,255,.6)';x.font=`700 20px ${FB}`;x.fillText(String(i+1),X+18,Y+ch/2+4);
+    x.fillStyle='#fff';x.font=`700 25px ${FB}`;x.fillText(words[i].word,X+60,Y+ch/2+5);
+  }
+  x.fillStyle='rgba(255,255,255,.75)';x.font=`400 22px ${FB}`;x.textAlign='center';x.fillText('Gençlerden Büyüklere, gündelik dilin sözlüğü',600,810);x.textAlign='left';
   return c;
 }
-function blankPage(){return pageCanvas()[0]}
-// yerler: [başlık, s1, s2, ..., sN, dizin(, boş)]
-const SLOTS=['title',...Array.from({length:PAGES},(_,k)=>k),'index'];if(SLOTS.length%2)SLOTS.push('blank');
-const SPREADS=SLOTS.length/2;
-function slotCanvas(s){return s==='title'?titlePage():s==='index'?indexPage():s==='blank'?blankPage():contentPage(s)}
-function coverCanvas(back){
-  const c=document.createElement('canvas');c.width=PW;c.height=PH;const x=c.getContext('2d');
-  x.fillStyle='#B5121B';x.fillRect(0,0,PW,PH);
-  for(let i=0;i<5000;i++){x.fillStyle=`rgba(${Math.random()<.5?0:255},0,0,${Math.random()*.06})`;x.fillRect(Math.random()*PW,Math.random()*PH,2,1+Math.random()*3)}
-  x.strokeStyle='#D8B45A';x.lineWidth=4;x.strokeRect(34,34,PW-68,PH-68);x.lineWidth=1.5;x.strokeRect(46,46,PW-92,PH-92);
-  x.fillStyle='#D8B45A';x.textAlign='center';
-  if(!back){x.font=`800 50px ${SERIF}`;['GENÇLERDEN','BÜYÜKLERE','SÖZLÜĞÜ'].forEach((t,i)=>x.fillText(t,PW/2,250+i*64));x.font=`400 28px ${SERIF}`;x.fillText(`${TOTAL} kelime`,PW/2,500)}
-  else{x.font=`400 26px ${SERIF}`;x.fillText('Gençlerden Büyüklere Sözlüğü',PW/2,PH-110)}
-  x.textAlign='left';return c;
+function book3dSpreadTexture(index){
+  const c=texCanvas(),x=c.getContext('2d'),a=words[index];
+  x.fillStyle='#D5DCE4';x.fillRect(0,0,1200,850);
+  gridPaper(x,14,14,580,822);gridPaper(x,606,14,580,822);
+  const g=x.createLinearGradient(560,0,640,0);g.addColorStop(0,'rgba(26,34,51,0)');g.addColorStop(.5,'rgba(26,34,51,.22)');g.addColorStop(1,'rgba(26,34,51,0)');x.fillStyle=g;x.fillRect(560,14,80,822);
+  // sol sayfa: konuşma
+  let X=100,W=460;
+  pageHead(x,X,74,W,'Gençler şöyle der','');
+  x.font=`500 30px ${FB}`;const bl=wrapLines(x,unquote(a.example),W-70,5);
+  const bw=Math.min(W,Math.max(...bl.map(l=>x.measureText(l).width))+56),bh=bl.length*42+34,bx=X+W-bw,by=140;
+  x.fillStyle='#132B66';rr(x,bx,by+4,bw,bh,26);x.fill();
+  x.fillStyle='#1D3F8F';rr(x,bx,by,bw,bh,26);x.fill();
+  x.fillStyle='#fff';drawLines(x,bl,bx+28,by+48,42);
+  let y=by+bh+70;
+  x.fillStyle='#1D3F8F';x.font=`700 24px ${FB}`;x.fillText('Yani',X,y);
+  x.fillStyle='#132B66';x.font=`400 28px ${FB}`;drawLines(x,wrapLines(x,a.meaning,W,6),X,y+44,40);
+  // sağ sayfa: kelime
+  X=692;W=446;
+  pageHead(x,X,74,W,'Konu: '+a.category,`Sayfa ${index+1} / ${TOTAL}`);
+  x.font=`800 84px ${FD}`;const wl=wrapLines(x,a.word,W,2);
+  wl.forEach((l,i)=>{const yy=200+i*88,mw=x.measureText(l).width;x.fillStyle='#E04A4F';x.fillRect(X,yy+14,mw,5)});
+  x.fillStyle='#000';y=drawLines(x,wl,X,200,88);
+  x.font=`700 31px ${FB}`;y=drawLines(x,wrapLines(x,a.definition,W,4),X,y+10,42);
+  x.fillStyle='#1D3F8F';x.font=`700 24px ${FB}`;x.fillText('Biraz daha açalım',X,y+30);
+  x.fillStyle='#2F3A4E';x.font=`400 25px ${FB}`;drawLines(x,wrapLines(x,a.detail,W,Math.max(2,Math.floor((800-(y+70))/36))),X,y+72,36);
+  return c;
 }
 
-/* 3B */
-const v3=$('#v3'),v3Stage=$('#v3Stage'),v3Canvas=$('#v3Canvas');
-let R=null,S=null,C=null,outer=null,inner=null,coverPivot=null,leftFace=null,rightFace=null,raf=0,spread=-1,atBack=false,busy=false,loading=false;
-const orbit={theta:-.35,phi:1.15,radius:5.2},ptrs=new Map(),gStart=new Map();let ptr=null,pinch0=0,rad0=0;
-const BW=1.62,BH=2.3,BD=.42;
-function tex(canvas){const T=THREE,t=new T.CanvasTexture(canvas);t.colorSpace=T.SRGBColorSpace;t.anisotropy=Math.min(8,R.capabilities.getMaxAnisotropy());return t}
-function setFace(mesh,canvas){const old=mesh.material.map;mesh.material.map=tex(canvas);mesh.material.needsUpdate=true;if(old)old.dispose()}
-function plane(canvas,w,h){const T=THREE;return new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshStandardMaterial({map:tex(canvas),roughness:.92}))}
-function buildBook(){
-  const T=THREE;
-  S=new T.Scene();C=new T.PerspectiveCamera(35,1,.1,100);
-  R=new T.WebGLRenderer({canvas:v3Canvas,alpha:true,antialias:true});R.setPixelRatio(Math.min(devicePixelRatio||1,2));R.outputColorSpace=T.SRGBColorSpace;R.shadowMap.enabled=true;R.shadowMap.type=T.PCFSoftShadowMap;
-  S.add(new T.HemisphereLight(0xffffff,0x9a958e,2.1));
-  const key=new T.DirectionalLight(0xffffff,2.4);key.position.set(-2.5,6,5);key.castShadow=true;key.shadow.mapSize.set(1024,1024);S.add(key);
-  outer=new T.Group();S.add(outer);inner=new T.Group();inner.position.x=-BW/2;outer.add(inner);
-  const red=new T.MeshStandardMaterial({color:0xB5121B,roughness:.85});
-  const block=new T.Mesh(new T.BoxGeometry(BW-.03,BH-.04,BD),new T.MeshStandardMaterial({color:0xf3f1ec,roughness:.95}));block.position.x=BW/2;block.castShadow=true;block.receiveShadow=true;inner.add(block);
-  const back=new T.Mesh(new T.BoxGeometry(BW+.04,BH+.06,.045),red);back.position.set(BW/2+.01,0,-BD/2-.022);back.castShadow=true;inner.add(back);
-  const backFace=plane(coverCanvas(true),BW+.02,BH+.04);backFace.position.set(BW/2+.01,0,-BD/2-.046);backFace.rotation.y=Math.PI;inner.add(backFace);
-  const spine=new T.Mesh(new T.BoxGeometry(.05,BH+.06,BD+.09),red);spine.position.set(-.02,0,0);inner.add(spine);
-  rightFace=plane(slotCanvas(SLOTS[1]),BW-.06,BH-.08);rightFace.position.set(BW/2,0,BD/2+.002);inner.add(rightFace);
-  coverPivot=new T.Group();coverPivot.position.set(0,0,BD/2+.024);inner.add(coverPivot);
-  const cover=new T.Mesh(new T.BoxGeometry(BW+.04,BH+.06,.045),red);cover.position.x=BW/2+.01;cover.castShadow=true;coverPivot.add(cover);
-  const front=plane(coverCanvas(false),BW+.02,BH+.04);front.position.set(BW/2+.01,0,.0235);coverPivot.add(front);
-  leftFace=plane(slotCanvas(SLOTS[0]),BW-.06,BH-.08);leftFace.position.set(BW/2,0,-.0235);leftFace.rotation.y=Math.PI;coverPivot.add(leftFace);
-  const floor=new T.Mesh(new T.PlaneGeometry(14,14),new T.ShadowMaterial({opacity:.2}));floor.rotation.x=-Math.PI/2;floor.position.y=-1.5;floor.receiveShadow=true;S.add(floor);
-  resize3();
+/* 3B defter */
+const view3d=$('#view3d'),view3dStage=$('#view3dStage'),book3dCanvas=$('#book3dCanvas');
+let book3dRenderer=null,book3dScene=null,book3dCamera=null,book3dGroup=null,book3dCoverPivot=null,book3dSpread=null,book3dRAF=0,book3dCurrent=0,book3dOpened=false,book3dEndCover=false,book3dBusy=false,book3dLoading=false;
+const book3dOrbit={theta:-.42,phi:1.12,radius:5.4},book3dPointers=new Map(),book3dGestureStart=new Map();let book3dPointer=null,book3dPinch=0,book3dDistance=0;
+function canvasTex(canvas){const T=window.THREE,t=new T.CanvasTexture(canvas);t.colorSpace=T.SRGBColorSpace;t.anisotropy=Math.min(8,book3dRenderer.capabilities.getMaxAnisotropy());return t}
+function make3DBook(){
+  const T=window.THREE;
+  book3dScene=new T.Scene();
+  book3dCamera=new T.PerspectiveCamera(35,1,.1,100);
+  book3dRenderer=new T.WebGLRenderer({canvas:book3dCanvas,alpha:true,antialias:true});
+  book3dRenderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
+  book3dRenderer.outputColorSpace=T.SRGBColorSpace;
+  book3dRenderer.shadowMap.enabled=true;book3dRenderer.shadowMap.type=T.PCFSoftShadowMap;
+  book3dScene.add(new T.HemisphereLight(0xffffff,0x8a97a8,2.2));
+  const key=new T.DirectionalLight(0xffffff,2.6);key.position.set(-3,6,6);key.castShadow=true;key.shadow.mapSize.set(1024,1024);book3dScene.add(key);
+  const fill=new T.DirectionalLight(0xdbe6ff,1.2);fill.position.set(4,2,-3);book3dScene.add(fill);
+  book3dGroup=new T.Group();book3dScene.add(book3dGroup);
+  const w=3.2,h=2.28,d=.22,blue=0x1D3F8F;
+  const body=new T.Mesh(new T.BoxGeometry(w,h,d),new T.MeshStandardMaterial({color:0xf4f6f2,roughness:.95}));body.castShadow=true;body.receiveShadow=true;book3dGroup.add(body);
+  book3dSpread=new T.Mesh(new T.PlaneGeometry(w-.06,h-.06),new T.MeshStandardMaterial({map:canvasTex(book3dSpreadTexture(book3dCurrent)),roughness:.95}));book3dSpread.position.z=d/2+.003;book3dGroup.add(book3dSpread);
+  const back=new T.Mesh(new T.BoxGeometry(w+.04,h+.04,.05),new T.MeshStandardMaterial({color:blue,roughness:.6}));back.position.z=-d/2-.03;back.castShadow=true;book3dGroup.add(back);
+  const rear=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshStandardMaterial({map:canvasTex(backCoverTexture()),roughness:.6}));rear.position.z=-d/2-.056;rear.rotation.y=Math.PI;book3dGroup.add(rear);
+  book3dCoverPivot=new T.Group();book3dCoverPivot.position.set(-w/2,0,d/2+.012);book3dGroup.add(book3dCoverPivot);
+  const cover=new T.Mesh(new T.BoxGeometry(w+.04,h+.04,.05),new T.MeshStandardMaterial({color:blue,roughness:.55}));cover.position.x=w/2+.02;cover.castShadow=true;book3dCoverPivot.add(cover);
+  const front=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshStandardMaterial({map:canvasTex(book3dCoverTexture()),roughness:.55}));front.position.set(w/2+.02,0,.026);book3dCoverPivot.add(front);
+  const inside=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshStandardMaterial({color:0xe9eef6,roughness:.9}));inside.position.set(w/2+.02,0,-.026);inside.rotation.y=Math.PI;book3dCoverPivot.add(inside);
+  const ringMat=new T.MeshStandardMaterial({color:0xc9d1da,metalness:.85,roughness:.28});
+  const ringGeo=new T.TorusGeometry(.17,.016,10,32);
+  for(let i=0;i<17;i++){const r=new T.Mesh(ringGeo,ringMat);r.rotation.x=Math.PI/2;r.position.set(-w/2+.035,-h/2+.12+i*(h-.24)/16,-.01);r.castShadow=true;book3dGroup.add(r)}
+  const floor=new T.Mesh(new T.PlaneGeometry(14,14),new T.ShadowMaterial({opacity:.18}));floor.rotation.x=-Math.PI/2;floor.position.y=-1.5;floor.receiveShadow=true;book3dScene.add(floor);
+  resizeBook3d();book3dOpened=false;book3dEndCover=false;book3dBusy=false;
 }
-function resize3(){if(!R)return;const r=v3Stage.getBoundingClientRect(),w=Math.max(1,r.width),h=Math.max(1,r.height);R.setSize(w,h,false);C.aspect=w/h;C.fov=w/h<1?50:34;C.updateProjectionMatrix()}
-function loop(){if(!R||!v3.classList.contains('open'))return;const r=orbit.radius,p=orbit.phi;C.position.set(r*Math.sin(p)*Math.sin(orbit.theta),r*Math.cos(p),r*Math.sin(p)*Math.cos(orbit.theta));C.lookAt(0,0,0);R.render(S,C);raf=requestAnimationFrame(loop)}
-function tween(from,to,ms,set,done){const t0=performance.now();(function step(t){const p=Math.min(1,(t-t0)/ms),e=1-Math.pow(1-p,3);set(from+(to-from)*e);if(p<1)requestAnimationFrame(step);else done&&done()})(t0)}
-function v3PosText(){
-  if(atBack)return'Arka kapak';if(spread<0)return'Ön kapak';
-  const L=SLOTS[2*spread],Rr=SLOTS[2*spread+1],n=s=>typeof s==='number'?String(s+1):null;
-  const a=n(L),b=n(Rr);return a&&b?`Sayfa ${a} ve ${b}`:a?`Sayfa ${a}`:b?`Sayfa ${b}`:spread===0?'İç kapak':'Dizin';
+function resizeBook3d(){if(!book3dRenderer)return;const r=view3dStage.getBoundingClientRect(),w=Math.max(1,r.width),h=Math.max(1,r.height);book3dRenderer.setSize(w,h,false);book3dCamera.aspect=w/h;book3dCamera.fov=w/h<1?52:35;book3dCamera.updateProjectionMatrix()}
+function renderBook3d(){if(!book3dRenderer||!view3d.classList.contains('open'))return;const r=book3dOrbit.radius,phi=book3dOrbit.phi;book3dCamera.position.set(r*Math.sin(phi)*Math.sin(book3dOrbit.theta),r*Math.cos(phi),r*Math.sin(phi)*Math.cos(book3dOrbit.theta));book3dCamera.lookAt(0,0,0);book3dRenderer.render(book3dScene,book3dCamera);book3dRAF=requestAnimationFrame(renderBook3d)}
+function animate3DValue(from,to,duration,setter,done){const start=performance.now();function step(t){const p=Math.min(1,(t-start)/duration),e=1-Math.pow(1-p,3);setter(from+(to-from)*e);if(p<1)requestAnimationFrame(step);else done&&done()}requestAnimationFrame(step)}
+function book3dBoundary(cur,dir,opened,endCover,total){
+  if(endCover)return dir>0?{action:'fromBack'}:{action:'none'};
+  if(!opened)return dir<0?{action:'openFront'}:{action:'none'};
+  if(dir>0&&cur===0)return{action:'closeFront'};
+  if(dir<0&&cur===total-1)return{action:'toBack'};
+  return{action:'turn',current:cur+(dir<0?1:-1)};
 }
-function v3Pos(){$('#v3Pos').textContent=v3PosText()}
-function v3Step(dir){ // dir 1 ileri, -1 geri
-  if(busy||!R)return;
-  const free=()=>{busy=false;v3Pos()};
-  if(atBack){if(dir<0){busy=true;tween(outer.rotation.y,0,650,v=>outer.rotation.y=v,()=>{atBack=false;free()})}return}
-  if(spread<0){
-    if(dir<0)return;busy=true;spread=0;
-    tween(0,1,800,v=>{coverPivot.rotation.y=-Math.PI*v;inner.position.x=-BW/2*(1-v)},free);return;
-  }
-  if(dir<0&&spread===0){busy=true;spread=-1;tween(1,0,800,v=>{coverPivot.rotation.y=-Math.PI*v;inner.position.x=-BW/2*(1-v)},free);return}
-  if(dir>0&&spread===SPREADS-1){busy=true;spread=-1;tween(1,0,600,v=>{coverPivot.rotation.y=-Math.PI*v;inner.position.x=-BW/2*(1-v)},()=>tween(0,Math.PI,700,v=>outer.rotation.y=v,()=>{atBack=true;spread=0;setFace(leftFace,slotCanvas(SLOTS[0]));setFace(rightFace,slotCanvas(SLOTS[1]));spread=-1;free()}));return}
-  // yaprak çevir
-  busy=true;const T=THREE,s0=spread,s1=spread+dir;
-  const leaf=new T.Group();leaf.position.set(0,0,BD/2+.05);inner.add(leaf);
-  const frontCv=slotCanvas(SLOTS[dir>0?2*s0+1:2*s1+1]),backCv=slotCanvas(SLOTS[dir>0?2*s1:2*s0]);
-  const f=plane(frontCv,BW-.06,BH-.08);f.position.x=BW/2;leaf.add(f);
-  const bk=plane(backCv,BW-.06,BH-.08);bk.position.set(BW/2,0,-.002);bk.rotation.y=Math.PI;leaf.add(bk);
-  if(dir>0)setFace(rightFace,slotCanvas(SLOTS[2*s1+1]));else setFace(leftFace,slotCanvas(SLOTS[2*s1]));
-  spread=s1;
-  tween(0,1,620,v=>leaf.rotation.y=dir>0?-Math.PI*v:-Math.PI*(1-v),()=>{
-    if(dir>0)setFace(leftFace,slotCanvas(SLOTS[2*s1]));else setFace(rightFace,slotCanvas(SLOTS[2*s1+1]));
-    for(const m of[f,bk]){m.geometry.dispose();m.material.map.dispose();m.material.dispose()}inner.remove(leaf);free();
-  });
-  if(dir<0)leaf.rotation.y=-Math.PI;
+function set3DPosition(){$('#book3dPosition').textContent=book3dEndCover?'Arka kapak':!book3dOpened?'Ön kapak':`Sayfa ${book3dCurrent+1} / ${TOTAL}`}
+function setSpread(i){const old=book3dSpread.material.map;book3dSpread.material.map=canvasTex(book3dSpreadTexture(i));book3dSpread.material.needsUpdate=true;old&&old.dispose()}
+function flip3DPage(dir){
+  if(book3dBusy||!book3dRenderer)return;
+  const step=book3dBoundary(book3dCurrent,dir,book3dOpened,book3dEndCover,TOTAL);
+  if(step.action==='none')return;
+  book3dBusy=true;const free=()=>{book3dBusy=false};
+  if(step.action==='openFront'){book3dOpened=true;set3DPosition();animate3DValue(book3dCoverPivot.rotation.y,-Math.PI*1.02,720,v=>book3dCoverPivot.rotation.y=v,free);return}
+  if(step.action==='closeFront'){book3dOpened=false;set3DPosition();animate3DValue(book3dCoverPivot.rotation.y,0,720,v=>book3dCoverPivot.rotation.y=v,free);return}
+  if(step.action==='toBack'){animate3DValue(book3dCoverPivot.rotation.y,0,420,v=>book3dCoverPivot.rotation.y=v,()=>animate3DValue(book3dGroup.rotation.y,Math.PI,720,v=>book3dGroup.rotation.y=v,()=>{book3dEndCover=true;book3dOpened=false;set3DPosition();free()}));return}
+  if(step.action==='fromBack'){animate3DValue(book3dGroup.rotation.y,0,620,v=>book3dGroup.rotation.y=v,()=>{book3dEndCover=false;book3dOpened=true;animate3DValue(0,-Math.PI*1.02,520,v=>book3dCoverPivot.rotation.y=v,()=>{set3DPosition();free()})});return}
+  const T=window.THREE,from=book3dCurrent;book3dCurrent=step.current;
+  // dönen yaprak: ileri giderken eski sağ sayfa, geri giderken yeni sayfa
+  const geom=new T.PlaneGeometry(1.57,2.2);geom.translate(.785,0,0);
+  const leafCanvas=book3dSpreadTexture(dir<0?from:book3dCurrent),half=document.createElement('canvas');half.width=600;half.height=850;half.getContext('2d').drawImage(leafCanvas,600,0,600,850,0,0,600,850);
+  const page=new T.Mesh(geom,new T.MeshStandardMaterial({map:canvasTex(half),side:T.DoubleSide,roughness:.95}));page.position.set(0,0,.125);book3dGroup.add(page);
+  if(dir<0)setSpread(book3dCurrent);
+  animate3DValue(0,1,560,v=>page.rotation.y=dir<0?-Math.PI*v:-Math.PI*(1-v),()=>{book3dGroup.remove(page);page.geometry.dispose();page.material.map.dispose();page.material.dispose();if(dir>0)setSpread(book3dCurrent);showWord(book3dCurrent,dir<0?1:-1);set3DPosition();free()});
+  if(dir>0)page.rotation.y=-Math.PI;
 }
-function loadThree(){return new Promise((ok,no)=>{if(window.THREE)return ok();const urls=['https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js','https://unpkg.com/three@0.159.0/build/three.min.js'];let i=0;(function next(){if(i>=urls.length)return no(new Error('3B kitap yüklenemedi. İnternet bağlantını kontrol edip tekrar dene.'));const s=document.createElement('script');s.src=urls[i++];s.onload=ok;s.onerror=next;document.head.append(s)})()})}
-const fontsReady=()=>Promise.race([Promise.all([document.fonts.load(`800 40px ${SERIF}`),document.fonts.load(`400 26px ${SERIF}`),document.fonts.load(`italic 400 26px ${SERIF}`)]).catch(()=>{}),new Promise(r=>setTimeout(r,2500))]);
-async function openV3(){
-  v3.classList.add('open');v3.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';v3Pos();
-  if(R){resize3();cancelAnimationFrame(raf);loop();return}
-  if(loading)return;loading=true;$('#v3Msg').hidden=false;$('#v3Msg').textContent='Kitap hazırlanıyor…';
+function loadThree(){return new Promise((resolve,reject)=>{if(window.THREE)return resolve();const urls=['https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js','https://unpkg.com/three@0.159.0/build/three.min.js'];let i=0;(function load(){if(i>=urls.length)return reject(new Error('3B defter yüklenemedi. İnternet bağlantını kontrol edip tekrar dene.'));const sc=document.createElement('script');sc.src=urls[i++];sc.onload=resolve;sc.onerror=load;document.head.appendChild(sc)})()})}
+const fontsReady=()=>Promise.race([Promise.all([document.fonts.load(`800 40px ${FD}`),document.fonts.load(`400 20px ${FB}`),document.fonts.load(`700 20px ${FB}`)]).catch(()=>{}),new Promise(r=>setTimeout(r,2500))]);
+async function openBook3d(){
+  book3dCurrent=current;view3d.classList.add('open');view3d.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+  if(book3dRenderer){setSpread(book3dCurrent);set3DPosition();cancelAnimationFrame(book3dRAF);resizeBook3d();renderBook3d();return}
+  set3DPosition();if(book3dLoading)return;book3dLoading=true;$('#view3dLoading').style.display='grid';$('#view3dLoading').textContent='Defter hazırlanıyor…';
   try{
     await Promise.all([loadThree(),fontsReady()]);
-    try{buildBook()}catch(err){if(R)R.dispose();R=null;console.error(err);throw new Error('3B kitap açılamadı. Sayfayı yenileyip tekrar dene.')}
-    $('#v3Msg').hidden=true;resize3();cancelAnimationFrame(raf);loop();
-  }catch(e){$('#v3Msg').textContent=e.message}finally{loading=false}
+    try{make3DBook()}catch(err){if(book3dRenderer)book3dRenderer.dispose();book3dRenderer=null;console.error(err);throw new Error('3B defter açılamadı. Sayfayı yenileyip tekrar dene.')}
+    $('#view3dLoading').style.display='none';resizeBook3d();cancelAnimationFrame(book3dRAF);renderBook3d();
+  }catch(e){$('#view3dLoading').textContent=e.message}finally{book3dLoading=false}
 }
-function closeV3(){v3.classList.remove('open');v3.setAttribute('aria-hidden','true');document.body.style.overflow='';cancelAnimationFrame(raf)}
-$('#v3Btn').addEventListener('click',openV3);$('#v3Close').addEventListener('click',closeV3);
-$('#v3Prev').addEventListener('click',()=>v3Step(-1));$('#v3Next').addEventListener('click',()=>v3Step(1));
-v3Stage.addEventListener('wheel',e=>{e.preventDefault();orbit.radius=Math.max(3,Math.min(8,orbit.radius+e.deltaY*.004))},{passive:false});
-v3Stage.addEventListener('pointerdown',e=>{ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});if(e.pointerType!=='mouse'&&ptrs.size===1)gStart.set(e.pointerId,{x:e.clientX,y:e.clientY});if(ptrs.size===1)ptr={x:e.clientX,y:e.clientY};if(ptrs.size===2){const a=[...ptrs.values()];pinch0=Math.hypot(a[1].x-a[0].x,a[1].y-a[0].y);rad0=orbit.radius;ptr=null;gStart.clear()}v3Stage.setPointerCapture(e.pointerId)});
-v3Stage.addEventListener('pointermove',e=>{if(!ptrs.has(e.pointerId))return;ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});if(ptrs.size===1&&ptr){orbit.theta-=(e.clientX-ptr.x)*.008;orbit.phi=Math.max(.25,Math.min(2.85,orbit.phi+(e.clientY-ptr.y)*.008));ptr={x:e.clientX,y:e.clientY}}else if(ptrs.size===2){const a=[...ptrs.values()],d=Math.hypot(a[1].x-a[0].x,a[1].y-a[0].y);orbit.radius=Math.max(3,Math.min(8,rad0*pinch0/Math.max(1,d)))}});
-v3Stage.addEventListener('pointerup',e=>{const s=gStart.get(e.pointerId);if(s&&ptrs.size===1){const dx=e.clientX-s.x,dy=e.clientY-s.y;if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.25)v3Step(dx<0?1:-1)}gStart.delete(e.pointerId);ptrs.delete(e.pointerId);if(!ptrs.size)ptr=null});
-v3Stage.addEventListener('pointercancel',e=>{gStart.delete(e.pointerId);ptrs.delete(e.pointerId);ptr=null});
-window.addEventListener('resize',resize3);
+function closeBook3d(){view3d.classList.remove('open');view3d.setAttribute('aria-hidden','true');document.body.style.overflow='';cancelAnimationFrame(book3dRAF)}
+$('#view3dBtn').addEventListener('click',openBook3d);
+$('#view3dClose').addEventListener('click',closeBook3d);
+view3d.addEventListener('click',e=>{if(e.target===view3d)closeBook3d()});
+$('#book3dPrev').addEventListener('click',()=>flip3DPage(1));
+$('#book3dNext').addEventListener('click',()=>flip3DPage(-1));
+view3dStage.addEventListener('wheel',e=>{e.preventDefault();book3dOrbit.radius=Math.max(3.4,Math.min(8,book3dOrbit.radius+e.deltaY*.004))},{passive:false});
+view3dStage.addEventListener('pointerdown',e=>{book3dPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(e.pointerType!=='mouse'&&book3dPointers.size===1)book3dGestureStart.set(e.pointerId,{x:e.clientX,y:e.clientY});if(book3dPointers.size===1)book3dPointer={x:e.clientX,y:e.clientY};if(book3dPointers.size===2){const a=[...book3dPointers.values()];book3dPinch=Math.hypot(a[1].x-a[0].x,a[1].y-a[0].y);book3dDistance=book3dOrbit.radius;book3dPointer=null;book3dGestureStart.clear()}view3dStage.setPointerCapture(e.pointerId)});
+view3dStage.addEventListener('pointermove',e=>{if(!book3dPointers.has(e.pointerId))return;book3dPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(book3dPointers.size===1&&book3dPointer){book3dOrbit.theta-=(e.clientX-book3dPointer.x)*.008;book3dOrbit.phi=Math.max(.25,Math.min(2.85,book3dOrbit.phi+(e.clientY-book3dPointer.y)*.008));book3dPointer={x:e.clientX,y:e.clientY}}else if(book3dPointers.size===2){const a=[...book3dPointers.values()],d=Math.hypot(a[1].x-a[0].x,a[1].y-a[0].y);book3dOrbit.radius=Math.max(3.4,Math.min(8,book3dDistance*book3dPinch/Math.max(1,d)))}});
+view3dStage.addEventListener('pointerup',e=>{const start=book3dGestureStart.get(e.pointerId);if(start&&book3dPointers.size===1){const dx=e.clientX-start.x,dy=e.clientY-start.y;if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.25)flip3DPage(dx<0?-1:1)}book3dGestureStart.delete(e.pointerId);book3dPointers.delete(e.pointerId);if(book3dPointers.size===0)book3dPointer=null});
+view3dStage.addEventListener('pointercancel',e=>{book3dGestureStart.delete(e.pointerId);book3dPointers.delete(e.pointerId);book3dPointer=null});
+window.addEventListener('resize',resizeBook3d);
 
 /* kamera */
 const cam=$('#cam'),camVideo=$('#camVideo'),camBook=$('#camBook'),camPage=$('#camPage');
 let camStream=null,camIndex=-1,camBusy=false,camZoom=1,camSwipe=null,camPinch=null;const camPtrs=new Map();
-function camFill(el,i){
-  if(i<0){el.className='page cover';el.innerHTML=`<div class="cover-frame"></div><div class="cover-title">GENÇLERDEN<br>BÜYÜKLERE<br>SÖZLÜĞÜ</div><div class="cover-sub">${TOTAL} kelime</div><div class="cover-hint">Açmak için sola kaydır</div>`;el.style.fontSize='';return}
-  const w=dict[i],L=letterOf(w),li=LETTERS.indexOf(L);
-  el.className='page';
-  el.innerHTML=`<div class="rh"><span>${esc(w.word)}</span><span>${i+1}</span></div><div class="e">${entryHTML(w)}</div><div class="tab" style="top:${(14+li*(72/LETTERS.length)).toFixed(2)}%">${esc(L)}</div>`;
-  el.style.fontSize='22px';for(let fs=22;fs>11&&el.scrollHeight>el.clientHeight+1;fs-=.5)el.style.fontSize=fs+'px';
+function camHTML(i){
+  if(i<0)return{cls:'cam-page cover',html:`<div class="label"><div class="label-row"><span>Adı</span></div><div class="label-title">Gençlerden Büyüklere</div><div class="label-row"><span>Dersi</span><b>Gündelik dil</b></div><div class="label-row"><span>Sınıfı</span><b>Herkes</b></div><div class="label-row"><span>Kelime</span><b>${TOTAL}</b></div></div><div class="cover-hint">Açmak için sola kaydır</div>`};
+  const w=words[i];
+  return{cls:'cam-page',html:`<div class="page-head"><span>Konu: <b>${escapeHtml(w.category)}</b></span><span>${i+1} / ${TOTAL}</span></div><h2 class="cam-word"><span class="mark">${escapeHtml(w.word)}</span></h2><p class="cam-def">${escapeHtml(w.definition)}</p><div class="chat"><p class="bubble">${escapeHtml(unquote(w.example))}</p></div><p class="note-label">Yani</p><p class="cam-mean">${escapeHtml(w.meaning)}</p><p class="cam-detail">${escapeHtml(w.detail)}</p>`};
 }
+function camFill(el,i){const c=camHTML(i);el.className=c.cls;el.innerHTML=c.html;el.style.fontSize='16px';if(i>=0)for(let fs=16;fs>10&&el.scrollHeight>el.clientHeight+1;fs-=.5)el.style.fontSize=fs+'px'}
 function camSetPos(){$('#camPos').textContent=camIndex<0?'Kapak':`${camIndex+1} / ${TOTAL}`}
 function camNudge(dir){camBook.animate([{translate:'0 0'},{translate:`${-dir*14}px 0`},{translate:'0 0'}],{duration:260,easing:'ease-out'})}
 function camFlip(dir){
   if(camBusy||!cam.classList.contains('open'))return;
   const target=camIndex+dir;
   if(target<-1){camNudge(dir);return}
-  if(target>=TOTAL){camNudge(dir);say('Sözlüğün sonuna geldin.',1800);return}
+  if(target>=TOTAL){camNudge(dir);say('Defterin sonuna geldin.',1800);return}
   camBusy=true;
-  const dur=matchMedia('(prefers-reduced-motion: reduce)').matches?1:520,leaf=document.createElement('div'),flat={transform:'rotateY(0deg)',filter:'brightness(1)'},turned={transform:'rotateY(-165deg)',filter:'brightness(.6)'},opts={duration:dur,easing:'cubic-bezier(.3,.7,.2,1)',fill:'forwards'};
+  const dur=matchMedia('(prefers-reduced-motion: reduce)').matches?1:520,leaf=document.createElement('div'),open={transform:'rotateY(0deg)',filter:'brightness(1)'},turned={transform:'rotateY(-165deg)',filter:'brightness(.55)'},opts={duration:dur,easing:'cubic-bezier(.3,.7,.2,1)',fill:'forwards'};
   camBook.appendChild(leaf);let anim;
-  if(dir>0){camFill(leaf,camIndex);camFill(camPage,target);camIndex=target;camSetPos();anim=leaf.animate([flat,turned],opts)}
-  else{camFill(leaf,target);anim=leaf.animate([turned,flat],opts)}
+  if(dir>0){camFill(leaf,camIndex);camFill(camPage,target);camIndex=target;camSetPos();anim=leaf.animate([open,turned],opts)}
+  else{camFill(leaf,target);anim=leaf.animate([turned,open],opts)}
   const done=()=>{if(dir<0){camFill(camPage,target);camIndex=target;camSetPos()}leaf.remove();camBusy=false};
   anim.onfinish=done;anim.oncancel=done;
 }
@@ -386,29 +554,27 @@ async function startCamera(){
     const stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}}});
     if(!cam.classList.contains('open')){stream.getTracks().forEach(t=>t.stop());return}
     camStream=stream;camVideo.srcObject=stream;camVideo.hidden=false;try{await camVideo.play()}catch{}
-  }catch(err){camVideo.hidden=true;say(err&&err.name==='NotAllowedError'?'Kamera izni verilmedi. Sözlük kamerasız gösteriliyor.':'Kamera açılamadı. Sözlük kamerasız gösteriliyor.',4500)}
+  }catch(err){camVideo.hidden=true;say(err&&err.name==='NotAllowedError'?'Kamera izni verilmedi. Defter kamerasız gösteriliyor.':'Kamera açılamadı. Defter kamerasız gösteriliyor.',4500)}
 }
 function stopCamera(){if(camStream)camStream.getTracks().forEach(t=>t.stop());camStream=null;camVideo.srcObject=null;camVideo.hidden=true}
 function openCam(){if(cam.classList.contains('open'))return;camIndex=-1;camZoom=1;camBusy=false;cam.style.setProperty('--cam-zoom','1');cam.classList.add('open');cam.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';camFill(camPage,-1);camSetPos();startCamera()}
-function closeCam(){if(!cam.classList.contains('open'))return;stopCamera();cam.classList.remove('open');cam.setAttribute('aria-hidden','true');document.body.style.overflow='';camPtrs.clear();camSwipe=camPinch=null;if(camIndex>=0)goToWord(dict[camIndex])}
-$('#camBtn').addEventListener('click',openCam);$('#camClose').addEventListener('click',closeCam);
+function closeCam(){if(!cam.classList.contains('open'))return;stopCamera();cam.classList.remove('open');cam.setAttribute('aria-hidden','true');document.body.style.overflow='';camPtrs.clear();camSwipe=camPinch=null;if(camIndex>=0&&camIndex!==current)showWord(camIndex,1)}
+$('#camBtn').addEventListener('click',openCam);
+$('#camClose').addEventListener('click',closeCam);
 cam.addEventListener('pointerdown',e=>{if(e.target.closest('#camClose'))return;camPtrs.set(e.pointerId,{x:e.clientX,y:e.clientY});if(camPtrs.size===1)camSwipe={x:e.clientX,y:e.clientY};else{camSwipe=null;const[a,b]=[...camPtrs.values()];camPinch={d:Math.max(1,Math.hypot(b.x-a.x,b.y-a.y)),z:camZoom}}});
 cam.addEventListener('pointermove',e=>{if(!camPtrs.has(e.pointerId))return;camPtrs.set(e.pointerId,{x:e.clientX,y:e.clientY});if(camPinch&&camPtrs.size>=2){const[a,b]=[...camPtrs.values()];camZoom=Math.max(.7,Math.min(1.5,camPinch.z*Math.hypot(b.x-a.x,b.y-a.y)/camPinch.d));cam.style.setProperty('--cam-zoom',camZoom.toFixed(3))}});
-function camPointerEnd(e){if(!camPtrs.has(e.pointerId))return;if(camSwipe&&camPtrs.size===1&&e.type==='pointerup'){const dx=e.clientX-camSwipe.x,dy=e.clientY-camSwipe.y;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.2)camFlip(dx<0?1:-1)}camPtrs.delete(e.pointerId);if(camPtrs.size<2)camPinch=null;if(!camPtrs.size)camSwipe=null}
+function camPointerEnd(e){if(!camPtrs.has(e.pointerId))return;if(camSwipe&&camPtrs.size===1&&e.type==='pointerup'){const dx=e.clientX-camSwipe.x,dy=e.clientY-camSwipe.y;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.2)camFlip(dx<0?1:-1)}camPtrs.delete(e.pointerId);if(camPtrs.size<2)camPinch=null;if(camPtrs.size===0)camSwipe=null}
 cam.addEventListener('pointerup',camPointerEnd);cam.addEventListener('pointercancel',camPointerEnd);
 cam.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
 ['gesturestart','gesturechange'].forEach(t=>document.addEventListener(t,e=>{if(cam.classList.contains('open'))e.preventDefault()}));
 document.addEventListener('visibilitychange',()=>{if(cam.classList.contains('open')){if(document.hidden)stopCamera();else startCamera()}});
 
-document.addEventListener('keydown',e=>{
-  if(e.target.matches('input,textarea'))return;
-  if(cam.classList.contains('open')){if(e.key==='ArrowRight')camFlip(1);else if(e.key==='ArrowLeft')camFlip(-1);else if(e.key==='Escape')closeCam();return}
-  if(v3.classList.contains('open')){if(e.key==='ArrowRight')v3Step(1);else if(e.key==='ArrowLeft')v3Step(-1);else if(e.key==='Escape')closeV3()}
-});
-
 /* başlangıç */
-$('#total').textContent=TOTAL;buildEntries();
-(function(){const h=location.hash.slice(1);if(!h)return;const w=dict.find(x=>slug(x)===h||x.word===decodeURIComponent(h));if(w)requestAnimationFrame(()=>goToWord(w))})();
+(function init(){
+  let start=0;
+  try{const h=decodeURIComponent(location.hash.slice(1));const i=words.findIndex(w=>w.word===h);if(i>=0)start=i}catch{}
+  current=start;showWord(start,1);
+})();
 </script>
 </body>
 </html>
