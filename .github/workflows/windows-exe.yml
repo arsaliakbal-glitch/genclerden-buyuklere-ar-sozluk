@@ -1,0 +1,233 @@
+name: Windows EXE
+
+# Sitedeki index.html değiştiğinde ya da elle başlatıldığında
+# sözlüğün internetsiz çalışan Windows programını ve kurulum dosyasını
+# üretir ve "Releases" sayfasına koyar.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - '.github/workflows/windows-exe.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: windows-exe
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Araçları kur
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq nsis
+          pip install --quiet pillow
+          mkdir -p /tmp/deps && cd /tmp/deps
+          npm init -y >/dev/null
+          npm i --no-audit --no-fund three@0.159.0 @fontsource/atkinson-hyperlegible-next@5.3.0 >/dev/null
+
+      - name: Program dosyalarını hazırla
+        run: |
+          set -e
+          mkdir -p app/www/lib/fonts
+          python3 - <<'EOF'
+          import re, shutil
+          from PIL import Image, ImageDraw, ImageFont
+          FS = '/tmp/deps/node_modules/@fontsource/atkinson-hyperlegible-next'
+          W = 'app/www'
+          css = ''
+          for f in ['400.css', '400-italic.css', '500.css', '700.css', '800.css']:
+              c = open(f'{FS}/{f}').read()
+              c = re.sub(r"url\(\./files/([^)]+?)\.woff2\) format\('woff2'\), url\(\./files/[^)]+?\.woff\) format\('woff'\)",
+                         r"url(fonts/\1.woff2) format('woff2')", c)
+              css += c + '\n'
+          for fn in re.findall(r'fonts/([^)]+\.woff2)', css):
+              shutil.copy(f'{FS}/files/{fn}', f'{W}/lib/fonts/{fn}')
+          open(f'{W}/lib/fonts.css', 'w').write(css)
+          shutil.copy('/tmp/deps/node_modules/three/build/three.min.js', f'{W}/lib/three.min.js')
+          shutil.copy(f'{FS}/LICENSE', f'{W}/lib/LISANS-yazi-tipi-OFL.txt')
+          shutil.copy('/tmp/deps/node_modules/three/LICENSE', f'{W}/lib/LISANS-three.js-MIT.txt')
+
+          s = open('index.html', encoding='utf-8', newline='').read()
+          s = re.sub(r'<link rel="preconnect"[^>]*>\r?\n', '', s)
+          s, n = re.subn(r'<link href="https://fonts\.googleapis\.com/[^"]*" rel="stylesheet">', '<link href="lib/fonts.css" rel="stylesheet">', s)
+          assert n == 1, 'yazı tipi bağlantısı bulunamadı'
+          s, n = re.subn(r"const urls=\[[^\]]*\]", "const urls=['lib/three.min.js']", s)
+          assert n == 1, 'three.js adresi bulunamadı'
+          open(f'{W}/index.html', 'w', encoding='utf-8', newline='').write(s)
+
+          S = 512
+          im = Image.new('RGBA', (S, S), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+          d.rounded_rectangle([60, 30, 452, 482], radius=28, fill=(29, 63, 143, 255))
+          d.rectangle([60, 30, 100, 482], fill=(19, 43, 102, 255))
+          d.rounded_rectangle([150, 150, 410, 300], radius=18, fill=(255, 255, 255, 255))
+          try:
+              font = ImageFont.truetype('DejaVuSans-Bold.ttf', 64)
+          except OSError:
+              font = ImageFont.load_default()
+          d.text((280, 225), 'GB', fill=(29, 63, 143, 255), font=font, anchor='mm')
+          d.rectangle([150, 330, 410, 338], fill=(224, 74, 79, 255))
+          im.save(f'{W}/icon.png')
+          im.save('app/icon.ico', sizes=[(16, 16), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)])
+          print('hazır')
+          EOF
+
+          cat > app/package.json <<'EOF'
+          {
+            "name": "genclerden-buyuklere-sozlugu",
+            "productName": "Gençlerden Büyüklere Sözlüğü",
+            "version": "1.0.0",
+            "description": "Gençlerin günlük dilindeki kelimeleri büyükler için açıklayan sözlük",
+            "main": "main.js",
+            "author": "arsaliakbal-glitch",
+            "license": "UNLICENSED"
+          }
+          EOF
+
+          cat > app/main.js <<'EOF'
+          const { app, BrowserWindow, Menu, session, shell } = require('electron');
+          const path = require('path');
+
+          // Program kendi penceresinde, internet olmadan çalışır.
+          Menu.setApplicationMenu(null);
+
+          function createWindow() {
+            const win = new BrowserWindow({
+              width: 1280, height: 860, minWidth: 360, minHeight: 560,
+              title: 'Gençlerden Büyüklere Sözlüğü',
+              icon: path.join(__dirname, 'www', 'icon.png'),
+              backgroundColor: '#E3E8EE', show: false, autoHideMenuBar: true,
+              webPreferences: { contextIsolation: true, nodeIntegration: false, sandbox: true },
+            });
+            // Yalnızca kamera iznine izin ver.
+            session.defaultSession.setPermissionRequestHandler((wc, permission, callback, details) => {
+              callback(permission === 'media' && (details.mediaTypes || []).every(t => t === 'video'));
+            });
+            session.defaultSession.setPermissionCheckHandler((wc, permission) => permission === 'media');
+            // Dış bağlantılar varsayılan tarayıcıda açılsın.
+            win.webContents.setWindowOpenHandler(({ url }) => {
+              if (/^https?:/i.test(url)) shell.openExternal(url);
+              return { action: 'deny' };
+            });
+            win.webContents.on('will-navigate', (e, url) => {
+              if (!url.startsWith('file:')) { e.preventDefault(); if (/^https?:/i.test(url)) shell.openExternal(url); }
+            });
+            win.loadFile(path.join(__dirname, 'www', 'index.html'));
+            win.once('ready-to-show', () => { win.maximize(); win.show(); });
+            win.on('page-title-updated', e => e.preventDefault());
+          }
+
+          app.whenReady().then(createWindow);
+          app.on('window-all-closed', () => app.quit());
+          EOF
+
+      - name: Windows programını paketle
+        run: |
+          set -e
+          cd app
+          npm i --no-audit --no-fund --save-dev electron@33.4.11 @electron/packager@20.3.0 >/dev/null
+          npx @electron/packager . Sozluk --platform=win32 --arch=x64 --out=dist --overwrite --asar \
+            --icon=icon.ico --app-version=1.0.0 \
+            --win32metadata.ProductName="Genclerden Buyuklere Sozlugu" \
+            --win32metadata.FileDescription="Genclerden Buyuklere Sozlugu" \
+            --win32metadata.CompanyName="arsaliakbal-glitch" \
+            --ignore="^/(dist|icon\.ico)$"
+
+      - name: Kurulum dosyasını oluştur
+        run: |
+          set -e
+          cat > kur.nsi <<'EOF'
+          Unicode true
+          !include "MUI2.nsh"
+
+          !define APPNAME "Gençlerden Büyüklere Sözlüğü"
+          !define APPKEY  "GenclerdenBuyuklereSozlugu"
+          !define SRC     "app/dist/Sozluk-win32-x64"
+
+          Name "${APPNAME}"
+          OutFile "Bilgisayara-Kur.exe"
+          InstallDir "$LOCALAPPDATA\Programs\${APPKEY}"
+          RequestExecutionLevel user
+          SetCompressor /SOLID lzma
+          BrandingText "${APPNAME}"
+          VIProductVersion "1.0.0.0"
+          VIAddVersionKey /LANG=1055 "ProductName" "${APPNAME}"
+          VIAddVersionKey /LANG=1055 "FileDescription" "${APPNAME} kurulumu"
+          VIAddVersionKey /LANG=1055 "FileVersion" "1.0.0"
+          VIAddVersionKey /LANG=1055 "ProductVersion" "1.0.0"
+          VIAddVersionKey /LANG=1055 "CompanyName" "arsaliakbal-glitch"
+          VIAddVersionKey /LANG=1055 "LegalCopyright" "arsaliakbal-glitch"
+
+          !define MUI_ICON   "app/icon.ico"
+          !define MUI_UNICON "app/icon.ico"
+          !define MUI_ABORTWARNING
+          !define MUI_WELCOMEPAGE_TITLE "${APPNAME}"
+          !define MUI_WELCOMEPAGE_TEXT "Sözlük bu bilgisayara kurulacak ve masaüstüne bir simge eklenecek.$\r$\n$\r$\nKurulduktan sonra sözlüğü açmak için masaüstündeki simgeye çift tıklamanız yeterli. İnternet gerekmez.$\r$\n$\r$\nBaşlamak için Kur'a tıklayın."
+          !define MUI_FINISHPAGE_TITLE "Kurulum tamamlandı"
+          !define MUI_FINISHPAGE_TEXT "Sözlüğü istediğiniz zaman masaüstündeki “${APPNAME}” simgesine çift tıklayarak açabilirsiniz."
+          !define MUI_FINISHPAGE_RUN "$INSTDIR\Sozluk.exe"
+          !define MUI_FINISHPAGE_RUN_TEXT "Sözlüğü şimdi aç"
+
+          !define MUI_PAGE_CUSTOMFUNCTION_SHOW WelcomeShow
+          !insertmacro MUI_PAGE_WELCOME
+          !insertmacro MUI_PAGE_INSTFILES
+          !insertmacro MUI_PAGE_FINISH
+          !insertmacro MUI_UNPAGE_CONFIRM
+          !insertmacro MUI_UNPAGE_INSTFILES
+          !insertmacro MUI_LANGUAGE "Turkish"
+
+          Function WelcomeShow
+            GetDlgItem $0 $HWNDPARENT 1
+            SendMessage $0 ${WM_SETTEXT} 0 "STR:Kur"
+          FunctionEnd
+
+          Section "Sözlük" SecMain
+            SetOutPath "$INSTDIR"
+            File /r "${SRC}/*.*"
+            File "app/icon.ico"
+            CreateShortCut "$DESKTOP\${APPNAME}.lnk" "$INSTDIR\Sozluk.exe" "" "$INSTDIR\icon.ico" 0
+            CreateDirectory "$SMPROGRAMS\${APPNAME}"
+            CreateShortCut "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk" "$INSTDIR\Sozluk.exe" "" "$INSTDIR\icon.ico" 0
+            CreateShortCut "$SMPROGRAMS\${APPNAME}\Kaldır.lnk" "$INSTDIR\Kaldir.exe"
+            WriteUninstaller "$INSTDIR\Kaldir.exe"
+            WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPKEY}" "DisplayName" "${APPNAME}"
+            WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPKEY}" "DisplayIcon" "$INSTDIR\icon.ico"
+            WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPKEY}" "DisplayVersion" "1.0.0"
+            WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPKEY}" "Publisher" "arsaliakbal-glitch"
+            WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPKEY}" "UninstallString" '"$INSTDIR\Kaldir.exe"'
+            WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPKEY}" "InstallLocation" "$INSTDIR"
+            WriteRegDWORD HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPKEY}" "NoModify" 1
+            WriteRegDWORD HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPKEY}" "NoRepair" 1
+          SectionEnd
+
+          Section "Uninstall"
+            Delete "$DESKTOP\${APPNAME}.lnk"
+            RMDir /r "$SMPROGRAMS\${APPNAME}"
+            RMDir /r "$INSTDIR"
+            DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPKEY}"
+          SectionEnd
+          EOF
+          makensis -V2 kur.nsi
+          zip -q -0 Bilgisayara-Kur.zip Bilgisayara-Kur.exe
+          ls -la Bilgisayara-Kur.exe Bilgisayara-Kur.zip
+
+      - name: Kurulum dosyasını yayınla
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          gh release delete windows --yes --cleanup-tag || true
+          gh release create windows Bilgisayara-Kur.exe Bilgisayara-Kur.zip \
+            --title "Windows programı" \
+            --notes "Bilgisayara-Kur.exe dosyasını indirip çift tıklayın ve Kur'a basın; masaüstüne sözlüğün simgesi eklenir. Tarayıcınız .exe indirmeye izin vermezse Bilgisayara-Kur.zip dosyasını indirip içinden çıkarın. Windows 'bilgisayarınızı korudu' uyarısı verirse 'Ek bilgi' ve 'Yine de çalıştır'a tıklayın. Windows 10/11, 64 bit. İnternet gerekmez."
